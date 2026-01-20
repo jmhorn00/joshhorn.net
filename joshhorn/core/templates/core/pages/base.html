@@ -1,0 +1,34 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <title>{% block title %}My App{% endblock %}</title>
+{% load static %}
+  <link rel="icon" href="{% static 'core/imgs/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'core/dist/css/core.css' %}">
+  {% block head %}{% endblock %}
+</head>
+
+<body>
+  <nav class="navbar">
+    
+  
+  </nav>
+
+
+  
+    {% block content %}
+    {% endblock %}
+ 
+
+
+ 
+  <script type="module" src="{% static 'core/dist/js/core.js' %}"></script>
+
+</body>
+</html>
+
+

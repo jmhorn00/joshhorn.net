@@ -1,0 +1,84 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Django",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/joshhorn/manage.py",
+            "args": [
+                "runserver"
+            ],
+            "django": true,
+            "cwd": "${workspaceFolder}/joshhorn",
+            "env": {
+                "PYTHONUNBUFFERED": "1",
+                "DJANGO_SETTINGS_MODULE": "joshhorn.settings"
+            },
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+        "name": "Django: makemigrations",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/joshhorn/manage.py",
+        "args": ["makemigrations"],
+        "django": true,
+        "cwd": "${workspaceFolder}/joshhorn",
+        "env": {
+            "PYTHONUNBUFFERED": "1",
+            "DJANGO_SETTINGS_MODULE": "joshhorn.settings"
+        },
+        "console": "integratedTerminal",
+        "justMyCode": true
+        },
+        {
+        "name": "Django: migrate",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/joshhorn/manage.py",
+        "args": ["migrate"],
+        "django": true,
+        "cwd": "${workspaceFolder}/joshhorn",
+        "env": {
+            "PYTHONUNBUFFERED": "1",
+            "DJANGO_SETTINGS_MODULE": "joshhorn.settings"
+        },
+        "console": "integratedTerminal",
+        "justMyCode": true
+        },
+        {
+        "name": "Django: collectstatic",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/joshhorn/manage.py",
+        "args": ["collectstatic", "--noinput"],
+        "django": true,
+        "cwd": "${workspaceFolder}/joshhorn",
+        "env": {
+            "PYTHONUNBUFFERED": "1",
+            "DJANGO_SETTINGS_MODULE": "joshhorn.settings"
+        },
+        "console": "integratedTerminal",
+        "justMyCode": true
+        },
+        {
+            "name": "Vite Build Watch",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "build:watch"],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "cwd": "${workspaceFolder}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Django + Vite Build",
+            "configurations": ["Django", "Vite Build Watch"]
+        }
+    ]
+}
