@@ -13,17 +13,29 @@
 </head>
 
 <body>
-  <nav class="navbar glass">
-    <div class="nav-container">
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'core:home' %}">Home</a>
-        </li>
-      </ul>
-    </div>
-    
-  
-  </nav>
+    <nav class="navbar glass " id="siteNav">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <a class="brand-link" href="{% url 'core:home' %}">Josh Horn</a>
+        </div>
+
+        <!-- Mobile toggle -->
+        <button class="nav-toggle" type="button" aria-controls="navMenu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          
+        </button>
+
+        <ul class="nav-menu glass" id="navMenu">
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:projects' %}">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
 
 
   
@@ -34,6 +46,27 @@
 
  
   <script type="module" src="{% static 'core/dist/js/core.js' %}"></script>
+  
+<script>
+  (function () {
+    const nav = document.getElementById("siteNav");
+    const btn = nav.querySelector(".nav-toggle");
+    const menu = document.getElementById("navMenu");
+
+    btn.addEventListener("click", () => {
+      const open = nav.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    // optional: close after clicking a link (nice on mobile)
+    menu.addEventListener("click", (e) => {
+      if (e.target.closest("a")) {
+        nav.classList.remove("is-open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>

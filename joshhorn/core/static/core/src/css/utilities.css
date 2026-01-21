@@ -1,0 +1,21 @@
+/* =========================
+   Glass utility
+========================= */
+/* Your normal glass stays normal */
+.glass{
+  position: relative;
+  background: rgba(20, 40, 70, 0.45);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.navbar.is-open.glass{
+    border-radius: 0;
+    box-shadow: none;
+ 
+    
+
+
+}

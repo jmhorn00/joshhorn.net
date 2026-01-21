@@ -1,18 +1,8 @@
-/* =========================
-   Base
-========================= */
-*,
-*::before,
-*::after { box-sizing: border-box; }
-body{
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0a2540 0%, #0b1c2d 35%, #05080f 100%);
-}
 .navbar{
     position: relative;
     z-index: 50;
 }
+
 .nav-container{
     display: flex;
     align-items: center;
@@ -20,12 +10,14 @@ body{
     gap:1rem;
     padding:0.75rem 1rem;
 }
+
 .brand-link{
     font-weight: 700;
     letter-spacing: 0.2px;
     text-decoration: none;
     color:orange;
 }
+
 .nav-link{
     text-decoration: none;
     display: inline-flex;
@@ -34,6 +26,7 @@ body{
     padding: 0.55rem 0.75rem;
     border-radius: 12px;
 }
+
 .nav-toggle{
     display: inline-flex;
     flex-direction: column;
@@ -43,6 +36,7 @@ body{
     background: transparent;
     cursor: pointer;
 }
+
 .nav-toggle-bar{
     width:24px;
     height: 2px;
@@ -56,9 +50,11 @@ body{
 .navbar.is-open .nav-toggle-bar:nth-child(1){
   transform: translateY(8px) rotate(45deg);
 }
+
 .navbar.is-open .nav-toggle-bar:nth-child(2){
   opacity: 0;
 }
+
 .navbar.is-open .nav-toggle-bar:nth-child(3){
   transform: translateY(-8px) rotate(-45deg);
 }
@@ -71,6 +67,7 @@ body{
    
     
 }
+
 .navbar.is-open .nav-menu{
     display: flex;
     flex-direction: column;
@@ -94,10 +91,12 @@ body{
     
     /* box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04); */
 }
+
 .navbar.is-open .nav-link{
     width: 100%;
     justify-content: flex-start;
 }
+
 /* DESKTOP (breakpoint) */
 @media (min-width: 900px){
   .navbar{
@@ -136,25 +135,4 @@ body{
   .nav-link{
     padding:0.45rem 0.65rem;
   }
-}
-/* =========================
-   Glass utility
-========================= */
-/* Your normal glass stays normal */
-.glass{
-  position: relative;
-  background: rgba(20, 40, 70, 0.45);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
-}
-.navbar.is-open.glass{
-    border-radius: 0;
-    box-shadow: none;
- 
-    
-
-
 }
