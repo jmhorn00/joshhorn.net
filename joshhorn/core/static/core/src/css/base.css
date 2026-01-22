@@ -8,7 +8,34 @@
 body{
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a2540 0%, #0b1c2d 35%, #05080f 100%);
+  background: var(--background-grad);
 }
 
+#siteNav.is-open ~ #pageContent {
+  display: none;
+}
+:root{
+  --container-padding: 1rem;          /* gutter */
+  --container-max: 1200px;            /* optional hard cap */
+}
+.container{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
 
+.section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 3rem auto 0;
+
+  width: 100%;
+  max-width: 65rem;
+  text-align: center;
+  gap: 0.75rem;
+}

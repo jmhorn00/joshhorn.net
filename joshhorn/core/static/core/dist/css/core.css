@@ -7,10 +7,43 @@
 body{
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a2540 0%, #0b1c2d 35%, #05080f 100%);
+  background: var(--background-grad);
+}
+#siteNav.is-open ~ #pageContent {
+  display: none;
+}
+:root{
+  --container-padding: 1rem;          /* gutter */
+  --container-max: 1200px;            /* optional hard cap */
+}
+.container{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+.section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 3rem auto 0;
+
+  width: 100%;
+  max-width: 65rem;
+  text-align: center;
+  gap: 0.75rem;
+}
+:root{
+    --font-clr:245, 128, 39;
+    --background-grad:linear-gradient(135deg, #0a2540 0%, #0b1c2d 35%, #05080f 100%);
+
 }
 .navbar{
     position: relative;
+    
     z-index: 50;
 }
 .nav-container{
@@ -24,11 +57,12 @@ body{
     font-weight: 700;
     letter-spacing: 0.2px;
     text-decoration: none;
-    color:orange;
+    color: rgba(var(--font-clr));
 }
 .nav-link{
     text-decoration: none;
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     gap:0.5rem;
     padding: 0.55rem 0.75rem;
@@ -49,7 +83,7 @@ body{
     background: currentColor;
     display: block;
     border-radius: 999px;
-    color:orange;
+    color: rgba(var(--font-clr));
 
 }
 /* when open, turn into an X */
@@ -68,12 +102,14 @@ body{
     margin: 0;
     padding: 0;
     
+    
    
     
 }
 .navbar.is-open .nav-menu{
     display: flex;
     flex-direction: column;
+    
     
 
     position: absolute;
@@ -86,7 +122,7 @@ body{
     border-top-right-radius: 0;
     border-bottom-right-radius: 3rem;
     border-bottom-left-radius: 3rem;
-    z-index: 50;
+    
     
     
 
@@ -94,9 +130,19 @@ body{
     
     /* box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04); */
 }
+.navbar.is-open .nav-item{
+  padding-left: 1rem;
+    padding-right: 1rem;
+}
 .navbar.is-open .nav-link{
-    width: 100%;
-    justify-content: flex-start;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  color: orange;
+  padding: 10px 12px;      /* so the hover area is obvious */
+}
+.navbar.is-open .nav-link:hover{
+  outline: 3px solid lime !important;
 }
 /* DESKTOP (breakpoint) */
 @media (min-width: 900px){
@@ -127,15 +173,14 @@ body{
     padding-right: 1rem;
   }
   .nav-link{
-    color:orange;
+    color: rgba(var(--font-clr));
+    padding:0.45rem 0.65rem;
   }
   .nav-link:hover{
     box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
   }
 
-  .nav-link{
-    padding:0.45rem 0.65rem;
-  }
+  
 }
 /* =========================
    Glass utility
@@ -144,6 +189,7 @@ body{
 .glass{
   position: relative;
   background: rgba(20, 40, 70, 0.45);
+ 
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -153,6 +199,8 @@ body{
 .navbar.is-open.glass{
     border-radius: 0;
     box-shadow: none;
+    border: none;
+    
  
     
 

@@ -1,5 +1,6 @@
 .navbar{
     position: relative;
+    
     z-index: 50;
 }
 
@@ -15,17 +16,19 @@
     font-weight: 700;
     letter-spacing: 0.2px;
     text-decoration: none;
-    color:orange;
+    color: rgba(var(--font-clr));
 }
 
 .nav-link{
     text-decoration: none;
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     gap:0.5rem;
     padding: 0.55rem 0.75rem;
     border-radius: 12px;
 }
+
 
 .nav-toggle{
     display: inline-flex;
@@ -43,7 +46,7 @@
     background: currentColor;
     display: block;
     border-radius: 999px;
-    color:orange;
+    color: rgba(var(--font-clr));
 
 }
 /* when open, turn into an X */
@@ -64,6 +67,7 @@
     margin: 0;
     padding: 0;
     
+    
    
     
 }
@@ -71,6 +75,7 @@
 .navbar.is-open .nav-menu{
     display: flex;
     flex-direction: column;
+    
     
 
     position: absolute;
@@ -83,7 +88,7 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 3rem;
     border-bottom-left-radius: 3rem;
-    z-index: 50;
+    
     
     
 
@@ -91,12 +96,21 @@
     
     /* box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04); */
 }
-
+.navbar.is-open .nav-item{
+  padding-left: 1rem;
+    padding-right: 1rem;
+}
 .navbar.is-open .nav-link{
-    width: 100%;
-    justify-content: flex-start;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  color: orange;
+  padding: 10px 12px;      /* so the hover area is obvious */
 }
 
+.navbar.is-open .nav-link:hover{
+  outline: 3px solid lime !important;
+}
 /* DESKTOP (breakpoint) */
 @media (min-width: 900px){
   .navbar{
@@ -126,13 +140,12 @@
     padding-right: 1rem;
   }
   .nav-link{
-    color:orange;
+    color: rgba(var(--font-clr));
+    padding:0.45rem 0.65rem;
   }
   .nav-link:hover{
     box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
   }
 
-  .nav-link{
-    padding:0.45rem 0.65rem;
-  }
+  
 }

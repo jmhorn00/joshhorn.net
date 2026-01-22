@@ -5,6 +5,7 @@
 .glass{
   position: relative;
   background: rgba(20, 40, 70, 0.45);
+ 
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -14,6 +15,8 @@
 .navbar.is-open.glass{
     border-radius: 0;
     box-shadow: none;
+    border: none;
+    
  
     
 

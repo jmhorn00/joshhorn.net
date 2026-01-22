@@ -38,16 +38,17 @@
 
 
 
-  
+    <main id="pageContent">
     {% block content %}
     {% endblock %}
- 
+    </main>
+      
 
 
  
   <script type="module" src="{% static 'core/dist/js/core.js' %}"></script>
   
-<script>
+{% comment %} <script>
   (function () {
     const nav = document.getElementById("siteNav");
     const btn = nav.querySelector(".nav-toggle");
@@ -66,7 +67,7 @@
       }
     });
   })();
-</script>
+</script> {% endcomment %}
 
 </body>
 </html>
