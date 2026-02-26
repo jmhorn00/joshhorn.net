@@ -22,8 +22,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy Django project (manage.py lives here)
 COPY joshhorn/ ./
 
-# Collect static files via WhiteNoise
-RUN python manage.py collectstatic --noinput
+# Collect static files via WhiteNoise (dummy key only used at build time)
+RUN SECRET_KEY=dummy-build-only-key python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
