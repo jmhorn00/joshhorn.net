@@ -1,15 +1,75 @@
 {% extends "core/pages/base.html" %}
 {% load static %}
-{% block title %}Home - My App{% endblock %}
+{% block title %}Josh Horn - Software Developer{% endblock %}
+{% block meta_description %}Josh Horn's personal portfolio — software developer, problem solver, and builder.{% endblock %}
 
 
 {% block content %}
-<div class="container">
-    <div class="section">
-        
-    </div>
-    
-</div>
 
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <p class="hero-greeting">Hi, I'm</p>
+      <h1 class="hero-name">Josh Horn</h1>
+      <h2 class="hero-title">Software Developer</h2>
+      <p class="hero-description">
+        I build clean, modern web experiences. Passionate about turning ideas into
+        elegant, functional applications.
+      </p>
+      <div class="hero-cta">
+        <a href="{% url 'core:projects' %}" class="btn btn-primary">View My Work</a>
+        <a href="{% url 'core:contact' %}" class="btn btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section class="container">
+  <div class="section">
+    <h2 class="section-heading">Technologies &amp; Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card glass">
+        <span class="skill-label">Python</span>
+      </div>
+      <div class="skill-card glass">
+        <span class="skill-label">Django</span>
+      </div>
+      <div class="skill-card glass">
+        <span class="skill-label">JavaScript</span>
+      </div>
+      <div class="skill-card glass">
+        <span class="skill-label">HTML &amp; CSS</span>
+      </div>
+      <div class="skill-card glass">
+        <span class="skill-label">Git</span>
+      </div>
+      <div class="skill-card glass">
+        <span class="skill-label">SQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Work Section -->
+<!-- TODO: populate cards dynamically from a projects model or data source -->
+<section class="container">
+  <div class="section">
+    <h2 class="section-heading">Featured Work</h2>
+    <div class="featured-grid">
+      <div class="featured-card glass">
+        <h3 class="featured-card-title">Project One</h3>
+        <p class="featured-card-desc">A brief description of a notable project, what it does, and the technologies used.</p>
+        <a href="{% url 'core:projects' %}" class="featured-link">View Projects &rarr;</a>
+      </div>
+      <div class="featured-card glass">
+        <h3 class="featured-card-title">Project Two</h3>
+        <p class="featured-card-desc">Another highlight project showcasing problem-solving and full-stack development skills.</p>
+        <a href="{% url 'core:projects' %}" class="featured-link">View Projects &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
