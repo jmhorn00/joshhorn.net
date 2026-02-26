@@ -10,10 +10,6 @@ body{
   min-height: 100vh;
   background: var(--background-grad);
 }
-
-#siteNav.is-open ~ #pageContent {
-  display: none;
-}
 :root{
   --container-padding: 1rem;          /* gutter */
   --container-max: 1200px;            /* optional hard cap */
