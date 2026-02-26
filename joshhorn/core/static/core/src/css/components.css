@@ -104,12 +104,12 @@
   display: flex;
   width: 100%;
   justify-content: flex-start;
-  color: orange;
-  padding: 10px 12px;      /* so the hover area is obvious */
+  color: rgba(var(--font-clr));
+  padding: 10px 12px;
 }
 
 .navbar.is-open .nav-link:hover{
-  outline: 3px solid lime !important;
+  background: rgba(var(--font-clr), 0.1);
 }
 /* =========================
    Landing Page
