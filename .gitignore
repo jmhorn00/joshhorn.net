@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 db.sqlite3
+
+# Node.js
+node_modules/
+package-lock.json
 # Distribution / packaging
 .Python
 build/
