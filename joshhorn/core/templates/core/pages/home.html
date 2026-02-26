@@ -72,4 +72,30 @@
   </div>
 </section>
 
+<!-- Top Services Section -->
+{% if top_services %}
+<section class="container">
+  <div class="section">
+    <h2 class="section-heading">Services I Offer</h2>
+    <div class="featured-grid">
+      {% for service in top_services %}
+      <div class="featured-card glass service-card">
+        <h3 class="featured-card-title">{{ service.name }}</h3>
+        <p class="featured-card-desc">{{ service.description }}</p>
+        <div class="service-pricing">
+          {% if service.hourly_rate %}
+          <span class="service-price-badge">${{ service.hourly_rate }}/hr</span>
+          {% endif %}
+          {% if service.flat_price %}
+          <span class="service-price-badge service-price-flat">Flat: ${{ service.flat_price }}</span>
+          {% endif %}
+        </div>
+        <a href="{% url 'core:services' %}" class="featured-link">View All Services &rarr;</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 {% endblock %}
