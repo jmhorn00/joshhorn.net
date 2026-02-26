@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-svgcam-&c+j@dpa(*e%@_f%*^&f6b=qn4v4kk8dq9!g!07ac$y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.environ.get('DEBUG', 'True') != 'False'
 
 ALLOWED_HOSTS = ["*"]
 
