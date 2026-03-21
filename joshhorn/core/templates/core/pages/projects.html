@@ -1,15 +1,58 @@
 {% extends "core/pages/base.html" %}
 {% load static %}
-{% block title %}Projects - My App{% endblock %}
-
+{% block title %}Projects - Josh Horn{% endblock %}
+{% block meta_description %}A collection of projects built by Josh Horn — web apps, tools, and experiments.{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="section">
-        
-    </div>
-    
-</div>
 
+<!-- Page Header -->
+<section class="container">
+  <div class="section">
+    <h1 class="page-title">Projects</h1>
+    <p class="hero-description">
+      Things I've built — from full web apps to focused tools and experiments.
+    </p>
+  </div>
+</section>
+
+<!-- Projects Grid -->
+{% if projects %}
+<section class="container">
+  <div class="projects-grid">
+    {% for project in projects %}
+    <article class="project-card glass">
+      <div class="project-card-body">
+        <h2 class="project-card-title">{{ project.title }}</h2>
+        <p class="project-card-desc">{{ project.description }}</p>
+        {% if project.tech_stack %}
+        <div class="tech-tags">
+          {% for tech in project.get_tech_list %}
+          <span class="tech-tag">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <div class="project-card-links">
+        {% if project.live_url %}
+        <a href="{{ project.live_url }}" class="btn btn-primary" target="_blank" rel="noopener">Live Site</a>
+        {% endif %}
+        {% if project.github_url %}
+        <a href="{{ project.github_url }}" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
+<section class="container">
+  <div class="section" style="margin-bottom: 4rem;">
+    <p class="hero-description">
+      Projects are on their way. In the meantime,
+      <a href="{% url 'core:contact' %}" class="featured-link">get in touch</a> to learn more about my work.
+    </p>
+  </div>
+</section>
+{% endif %}
 
 {% endblock %}

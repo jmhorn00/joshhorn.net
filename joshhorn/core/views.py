@@ -1,20 +1,37 @@
 from django.shortcuts import render
-from .models import Service
+from .models import Project, Service
 
-# Create your views here.
+
 def home(request):
-    top_services = Service.objects.filter(is_featured=True).order_by('order')[:3]
-    return render(request, 'core/pages/home.html', {'top_services': top_services})
+    sent = False
+    if request.method == 'POST':
+        sent = True
+
+    return render(request, 'core/pages/home.html', {
+        'projects': Project.objects.all(),
+        'services': Service.objects.all(),
+        'sent': sent,
+    })
+
 
 def about(request):
     return render(request, 'core/pages/about.html')
 
+
 def projects(request):
-    return render(request, 'core/pages/projects.html')
+    return render(request, 'core/pages/projects.html', {
+        'projects': Project.objects.all(),
+    })
+
 
 def contact(request):
-    return render(request, 'core/pages/contact.html')
+    sent = False
+    if request.method == 'POST':
+        sent = True
+    return render(request, 'core/pages/contact.html', {'sent': sent})
+
 
 def services(request):
-    all_services = Service.objects.all()
-    return render(request, 'core/pages/services.html', {'services': all_services})
+    return render(request, 'core/pages/services.html', {
+        'services': Service.objects.all(),
+    })

@@ -1,15 +1,76 @@
 {% extends "core/pages/base.html" %}
 {% load static %}
-{% block title %}About - My App{% endblock %}
-
+{% block title %}About - Josh Horn{% endblock %}
+{% block meta_description %}Learn more about Josh Horn — software developer focused on Python, Django, and modern web development.{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="section glass">
-        <h1>About Me</h1>
-        <p>Welcome to the about page. Here you can learn more about me and my
-        projects.</p>
+
+<!-- Page Header -->
+<section class="page-header container">
+  <div class="section">
+    <h1 class="page-title">About Me</h1>
+    <p class="hero-description">
+      A little bit about who I am, what I do, and what drives me.
+    </p>
+  </div>
+</section>
+
+<!-- Bio Section -->
+<section class="container">
+  <div class="about-layout">
+    <div class="about-body glass">
+      <h2 class="about-section-title">Hey, I'm Josh</h2>
+      <p class="about-text">
+        I'm a software developer with a passion for building clean, practical web applications.
+        My work centers around Python and Django on the backend, paired with modern HTML, CSS,
+        and JavaScript on the front — prioritizing simplicity, performance, and good user experience.
+      </p>
+      <p class="about-text">
+        I enjoy the full journey from a rough idea to a deployed product: architecting data
+        models, wiring up APIs, crafting responsive interfaces, and shipping something that
+        actually works well for real people.
+      </p>
+      <p class="about-text">
+        When I'm not writing code, I'm probably tinkering with a side project, exploring new
+        tooling, or thinking about how to make something a little more elegant.
+      </p>
     </div>
-</div>
+
+    <div class="about-sidebar">
+      <div class="about-card glass">
+        <h3 class="about-card-title">Core Stack</h3>
+        <ul class="about-list">
+          <li>Python &amp; Django</li>
+          <li>JavaScript (vanilla &amp; modern)</li>
+          <li>HTML, CSS &amp; responsive design</li>
+          <li>PostgreSQL &amp; SQLite</li>
+          <li>Git &amp; GitHub</li>
+          <li>Docker &amp; deployment</li>
+        </ul>
+      </div>
+
+      <div class="about-card glass">
+        <h3 class="about-card-title">What I Value</h3>
+        <ul class="about-list">
+          <li>Simple solutions over clever ones</li>
+          <li>Code that's easy to read and change</li>
+          <li>Shipping over perfecting</li>
+          <li>Learning in public</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="container">
+  <div class="section" style="margin-bottom: 4rem;">
+    <p class="hero-description">Interested in working together or just want to say hello?</p>
+    <div class="hero-cta">
+      <a href="{% url 'core:contact' %}" class="btn btn-primary">Get In Touch</a>
+      <a href="{% url 'core:projects' %}" class="btn btn-secondary">See My Work</a>
+    </div>
+  </div>
+</section>
 
 {% endblock %}

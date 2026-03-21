@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node_modules/.bin/vite build:*)",
+      "Bash(command -v node)",
+      "Bash(command -v npm)",
+      "Bash(source /mnt/e/projects/joshhorn.net/.venv/Scripts/activate)",
+      "Bash(python /mnt/e/projects/joshhorn.net/joshhorn/manage.py migrate)",
+      "Bash(/mnt/e/projects/joshhorn.net/.venv/Scripts/python.exe /mnt/e/projects/joshhorn.net/joshhorn/manage.py migrate 2>&1)",
+      "Bash(cmd.exe /c \"E:\\\\projects\\\\joshhorn.net\\\\.venv\\\\Scripts\\\\python.exe E:\\\\projects\\\\joshhorn.net\\\\joshhorn\\\\manage.py migrate\" 2>&1)",
+      "Bash(\"/mnt/c/Program Files/nodejs/npm\" run build 2>&1)"
+    ]
+  }
+}
