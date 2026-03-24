@@ -28,6 +28,12 @@ DEBUG = os.environ.get('DEBUG', 'True') != 'False'
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    o.strip()
+    for o in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+    if o.strip()
+]
+
 
 # Application definition
 
