@@ -4,7 +4,7 @@
 /* Your normal glass stays normal */
 .glass{
   position: relative;
-  background: rgba(20, 40, 70, 0.45);
+  background: rgba(8, 20, 48, 0.55);
  
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);

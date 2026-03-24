@@ -1,6 +1,5 @@
-:root{
-    --font-clr:245, 128, 39;
-    --text-clr:255, 255, 255;
-    --background-grad:linear-gradient(135deg, #0a2540 0%, #0b1c2d 35%, #05080f 100%);
-
+:root {
+  --font-clr: 56, 189, 248;       /* electric sky blue */
+  --text-clr: 226, 232, 240;      /* cool slate white */
+  --background-grad: linear-gradient(160deg, #030712 0%, #080f1f 45%, #020509 100%);
 }

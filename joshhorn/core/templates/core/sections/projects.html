@@ -1,0 +1,40 @@
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects" class="page-section page-section--alt">
+  <div class="container">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">Things I've Built</h2>
+    <p class="section-subtitle">From full web apps to focused tools and experiments.</p>
+
+    {% if projects %}
+    <div class="cards-grid">
+      {% for project in projects %}
+      <article class="project-card glass">
+        <div class="project-card-body">
+          <h3 class="project-card-title">{{ project.title }}</h3>
+          <p class="project-card-desc">{{ project.description }}</p>
+          {% if project.tech_stack %}
+          <div class="tech-tags">
+            {% for tech in project.get_tech_list %}
+            <span class="tech-tag">{{ tech }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% if project.live_url or project.github_url %}
+        <div class="project-card-links">
+          {% if project.live_url %}
+          <a href="{{ project.live_url }}" class="btn btn-primary" target="_blank" rel="noopener">Live</a>
+          {% endif %}
+          {% if project.github_url %}
+          <a href="{{ project.github_url }}" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Projects are on their way — check back soon.</p>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,46 @@
+services:
+
+  traefik:
+    image: traefik:v3
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --certificatesresolvers.le.acme.email=josh@joshhorn.net
+      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt:/letsencrypt
+    restart: unless-stopped
+
+  web:
+    image: ghcr.io/jmhorn00/joshhorn.net:latest
+    env_file: .env
+    labels:
+      - traefik.enable=true
+      # HTTPS router
+      - traefik.http.routers.web.rule=Host(`joshhorn.net`) || Host(`www.joshhorn.net`)
+      - traefik.http.routers.web.entrypoints=websecure
+      - traefik.http.routers.web.tls.certresolver=le
+      # HTTP → HTTPS redirect
+      - traefik.http.routers.web-http.rule=Host(`joshhorn.net`) || Host(`www.joshhorn.net`)
+      - traefik.http.routers.web-http.entrypoints=web
+      - traefik.http.routers.web-http.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json:ro
+    command: --interval 60 --cleanup
+    restart: unless-stopped
+
+volumes:
+  letsencrypt:

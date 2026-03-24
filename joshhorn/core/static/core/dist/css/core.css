@@ -14,12 +14,13 @@ body {
   /* no padding-top — hero handles its own spacing */
 }
 :root {
+  --max-w: 68rem;
   --container-padding: 1.25rem;
-  --nav-h: 4.5rem; /* used for scroll-margin offsets */
+  --nav-h: 3.75rem; /* matches .nav-container height */
 }
 .container {
   width: 100%;
-  max-width: 68rem;
+  max-width: var(--max-w);
   margin-left: auto;
   margin-right: auto;
   padding-left: var(--container-padding);
@@ -37,11 +38,10 @@ body {
   text-align: center;
   gap: 0.75rem;
 }
-:root{
-    --font-clr:245, 128, 39;
-    --text-clr:255, 255, 255;
-    --background-grad:linear-gradient(135deg, #0a2540 0%, #0b1c2d 35%, #05080f 100%);
-
+:root {
+  --font-clr: 56, 189, 248;       /* electric sky blue */
+  --text-clr: 226, 232, 240;      /* cool slate white */
+  --background-grad: linear-gradient(160deg, #030712 0%, #080f1f 45%, #020509 100%);
 }
 /* =========================
    Keyframes
@@ -59,64 +59,48 @@ body {
   100% { background-position: 200% center; }
 }
 /* =========================
-   Navbar — floating pill
+   Navbar
 ========================= */
 .navbar {
   position: fixed;
-  top: 0.85rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 1.5rem);
-  max-width: 62rem;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
-  border-radius: 999px;
-  /* Own glass — NOT using the .glass utility class */
-  background: rgba(10, 22, 44, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(3, 7, 18, 0.6);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
-  transition: border-radius 0.28s ease, background 0.3s ease,
-              box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
-/* Richer glass once the user scrolls */
 .navbar.scrolled {
-  background: rgba(6, 14, 30, 0.94);
-  box-shadow: 0 8px 44px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(30px) saturate(200%);
-  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  background: rgba(2, 5, 14, 0.92);
+  border-bottom-color: rgba(56, 189, 248, 0.12);
+  box-shadow: 0 1px 0 rgba(56, 189, 248, 0.06), 0 8px 32px rgba(0, 0, 0, 0.55);
 }
-/* Pill → card when mobile menu open */
-.navbar.is-open {
-  border-radius: 1.5rem;
-}
-/* nav-container: column on mobile so menu drops below the bar row */
+/* Inner wrapper — aligns with page content */
 .nav-container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  height: 3.75rem;
 }
-/* Top row: brand (left) + toggle (right) */
+/* Top row on mobile: brand left, toggle right */
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.55rem 0.7rem 0.55rem 0.9rem;
+  width: 100%;
 }
 /* ---- Brand ---- */
 .brand-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  gap: 0.5rem;
   text-decoration: none;
-  color: rgba(var(--text-clr), 0.88);
-  transition: color 0.2s;
   flex-shrink: 0;
-}
-.brand-link:hover {
-  color: rgba(var(--text-clr), 1);
 }
 .brand-monogram {
   display: inline-flex;
@@ -125,17 +109,26 @@ body {
   width: 2rem;
   height: 2rem;
   background: rgba(var(--font-clr), 1);
-  color: #07111f;
-  border-radius: 9px;
-  font-size: 0.7rem;
+  color: #030712;
+  border-radius: 8px;
+  font-size: 0.68rem;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   flex-shrink: 0;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transition: box-shadow 0.2s ease;
 }
 .brand-link:hover .brand-monogram {
-  transform: scale(1.1) rotate(-5deg);
-  box-shadow: 0 4px 18px rgba(var(--font-clr), 0.5);
+  box-shadow: 0 0 0 3px rgba(var(--font-clr), 0.25);
+}
+.brand-name {
+  font-size: 0.97rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgba(var(--text-clr), 0.9);
+  transition: color 0.2s;
+}
+.brand-link:hover .brand-name {
+  color: rgba(var(--text-clr), 1);
 }
 .brand-dot {
   color: rgba(var(--font-clr), 1);
@@ -145,37 +138,38 @@ body {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 5px;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   padding: 0;
-  border: 0;
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
   border-radius: 8px;
   cursor: pointer;
   flex-shrink: 0;
-  align-items: center;
-  transition: background 0.2s;
+  transition: background 0.2s, border-color 0.2s;
 }
 .nav-toggle:hover {
-  background: rgba(var(--font-clr), 0.12);
+  background: rgba(var(--font-clr), 0.08);
+  border-color: rgba(var(--font-clr), 0.3);
 }
 .nav-toggle-bar {
-  width: 18px;
-  height: 2px;
-  background: rgba(var(--font-clr), 1);
+  width: 16px;
+  height: 1.5px;
+  background: rgba(var(--text-clr), 0.75);
   display: block;
   border-radius: 999px;
   transition: transform 0.25s ease, opacity 0.2s ease;
 }
 .navbar.is-open .nav-toggle-bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(6.5px) rotate(45deg);
 }
 .navbar.is-open .nav-toggle-bar:nth-child(2) {
   opacity: 0;
 }
 .navbar.is-open .nav-toggle-bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-6.5px) rotate(-45deg);
 }
 /* ---- Mobile nav menu ---- */
 .nav-menu {
@@ -184,30 +178,38 @@ body {
   padding: 0;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.32s ease, padding 0.28s ease;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(2, 5, 14, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+  transition: max-height 0.3s ease;
 }
 .navbar.is-open .nav-menu {
-  max-height: 420px;
-  padding: 0.25rem 0.5rem 0.75rem;
+  max-height: 400px;
 }
 .nav-item {
-  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 .nav-link {
   text-decoration: none;
   display: flex;
   align-items: center;
-  padding: 0.7rem 0.85rem;
-  border-radius: 10px;
-  font-size: 0.93rem;
+  padding: 0.95rem var(--container-padding);
+  font-size: 0.95rem;
   font-weight: 500;
-  color: rgba(var(--text-clr), 0.65);
+  color: rgba(var(--text-clr), 0.6);
   transition: color 0.2s, background 0.2s;
+  max-width: var(--max-w);
+  margin: 0 auto;
 }
 .nav-link:hover,
 .nav-link.active {
   color: rgba(var(--font-clr), 1);
-  background: rgba(var(--font-clr), 0.1);
+  background: rgba(var(--font-clr), 0.05);
 }
 /* =========================
    Scroll reveal
@@ -293,11 +295,12 @@ section[id] {
   align-items: center;
   justify-content: center;
   min-height: 100svh;
-  padding: 7rem 1rem 4rem;
+  padding: calc(var(--nav-h) + 3rem) 1rem 4rem;
 }
 .hero-content {
   max-width: 52rem;
   width: 100%;
+  margin: 0 auto;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -320,7 +323,7 @@ section[id] {
   background: linear-gradient(
     90deg,
     rgba(var(--font-clr), 1) 0%,
-    #ffcd80 45%,
+    #bae6fd 45%,
     rgba(var(--font-clr), 1) 100%
   );
   background-size: 200% auto;
@@ -530,9 +533,7 @@ section[id] {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 1.5rem;
   width: 100%;
-  max-width: 65rem;
-  margin: 2rem auto 3rem;
-  padding: 0 1rem;
+  margin: 2rem 0 3rem;
 }
 .service-detail-card {
   padding: 1.75rem;
@@ -584,9 +585,7 @@ section[id] {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.25rem;
   width: 100%;
-  max-width: 65rem;
-  margin: 2rem auto 4rem;
-  padding: 0 1rem;
+  margin: 2rem 0 4rem;
 }
 .project-card {
   padding: 1.5rem;
@@ -637,9 +636,7 @@ section[id] {
   grid-template-columns: 1fr;
   gap: 1.25rem;
   width: 100%;
-  max-width: 65rem;
-  margin: 1.5rem auto 4rem;
-  padding: 0 1rem;
+  margin: 1.5rem 0 4rem;
 }
 .about-body {
   padding: 1.75rem;
@@ -695,9 +692,7 @@ section[id] {
   grid-template-columns: 1fr;
   gap: 1.25rem;
   width: 100%;
-  max-width: 65rem;
-  margin: 1.5rem auto 4rem;
-  padding: 0 1rem;
+  margin: 1.5rem 0 4rem;
 }
 .contact-info {
   padding: 1.75rem;
@@ -797,7 +792,7 @@ section[id] {
   padding: 1.5rem 1rem;
 }
 .footer-inner {
-  max-width: 65rem;
+  max-width: var(--max-w);
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -831,6 +826,57 @@ section[id] {
 /* =========================
    Very small screens
 ========================= */
+/* =========================
+   Mobile (≤ 640px)
+========================= */
+@media (max-width: 640px) {
+  /* Tighter section padding */
+  .page-section { padding: 3rem 0; }
+
+  /* Hero: less top padding, tighter gap */
+  .hero {
+    padding: calc(var(--nav-h) + 2rem) 0 3rem;
+    align-items: flex-start;
+  }
+
+  .hero-content { gap: 0.75rem; }
+
+  /* Full-width stacked buttons */
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Cards: reduce padding */
+  .project-card,
+  .service-detail-card,
+  .about-body,
+  .about-card,
+  .contact-info,
+  .contact-form-wrap {
+    padding: 1.25rem;
+  }
+
+  /* About/contact layouts: full column gap */
+  .about-layout,
+  .contact-layout { margin-bottom: 2.5rem; }
+
+  /* Section titles */
+  .section-title { margin-bottom: 0.4rem; }
+  .section-subtitle { margin-bottom: 1.75rem; }
+
+  /* Footer: stack vertically */
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
 @media (max-width: 380px) {
   .brand-name { display: none; }
 }
@@ -838,51 +884,50 @@ section[id] {
    Desktop (≥ 900px)
 ========================= */
 @media (min-width: 900px) {
-  /* Flip the nav-container to a single row */
-  .nav-container {
-    flex-direction: row;
-    align-items: center;
-    padding: 0.3rem 0.6rem 0.3rem 0.75rem;
-  }
+  /* Brand + links in a single row */
+  .nav-bar { width: auto; }
 
-  /* nav-bar: just the brand, no padding (container handles it) */
-  .nav-bar {
-    padding: 0;
-    flex-shrink: 0;
-  }
-
-  /* Toggle is irrelevant on desktop */
   .nav-toggle { display: none; }
 
-  /* Menu flows as a row to the right of the brand */
+  /* Menu sits inline, to the right of brand */
   .nav-menu {
+    position: static;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.1rem;
+    gap: 0.25rem;
     max-height: unset;
     overflow: visible;
-    padding: 0;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     margin-left: auto;
   }
 
-  /* Pill stays pill even when JS added is-open on resize */
-  .navbar.is-open {
-    border-radius: 999px;
+  .nav-item {
+    border: none;
   }
 
   .nav-link {
-    color: rgba(var(--text-clr), 0.55);
-    padding: 0.38rem 0.6rem;
-    font-size: 0.86rem;
+    position: relative;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    border-radius: 8px;
+    color: rgba(var(--text-clr), 0.5);
+    border-radius: 6px;
+    margin: 0;
+    max-width: unset;
   }
 
-  .nav-link:hover,
+  .nav-link:hover {
+    color: rgba(var(--text-clr), 0.9);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
   .nav-link.active {
     color: rgba(var(--font-clr), 1);
-    background: rgba(var(--font-clr), 0.09);
+    background: rgba(var(--font-clr), 0.08);
   }
 
   /* Two-column about + contact */
@@ -902,7 +947,7 @@ section[id] {
 /* Your normal glass stays normal */
 .glass{
   position: relative;
-  background: rgba(20, 40, 70, 0.45);
+  background: rgba(8, 20, 48, 0.55);
  
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);

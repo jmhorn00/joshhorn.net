@@ -1,0 +1,42 @@
+<!-- ===================== SERVICES ===================== -->
+<section id="services" class="page-section">
+  <div class="container">
+    <div class="section-label">Services</div>
+    <h2 class="section-title">How I Can Help</h2>
+    <p class="section-subtitle">Here's what I offer — from quick consulting to full project builds.</p>
+
+    {% if services %}
+    <div class="cards-grid">
+      {% for service in services %}
+      <div class="service-detail-card glass">
+        <h3 class="service-detail-title">{{ service.name }}</h3>
+        <p class="service-detail-desc">{{ service.description }}</p>
+        <div class="service-pricing">
+          {% if service.hourly_rate %}
+          <div class="service-price-item">
+            <span class="service-price-label">Hourly Rate</span>
+            <span class="service-price-value">${{ service.hourly_rate }}/hr</span>
+          </div>
+          {% endif %}
+          {% if service.flat_price %}
+          <div class="service-price-item">
+            <span class="service-price-label">Flat Price</span>
+            <span class="service-price-value">${{ service.flat_price }}</span>
+          </div>
+          {% endif %}
+          {% if not service.hourly_rate and not service.flat_price %}
+          <div class="service-price-item">
+            <span class="service-price-label">Pricing</span>
+            <span class="service-price-value">Contact for quote</span>
+          </div>
+          {% endif %}
+        </div>
+        <a href="#contact" class="btn btn-secondary" style="margin-top:auto; align-self:flex-start;">Get In Touch</a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Services coming soon. <a href="#contact" class="featured-link">Contact me</a> to discuss your project.</p>
+    {% endif %}
+  </div>
+</section>
