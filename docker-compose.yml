@@ -18,9 +18,22 @@ services:
       - letsencrypt:/letsencrypt
     restart: unless-stopped
 
+  db:
+    image: postgres:16-alpine
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
   web:
     image: ghcr.io/jmhorn00/joshhorn.net:latest
     env_file: .env
+    depends_on:
+      - db
     labels:
       - traefik.enable=true
       # HTTPS router
@@ -44,3 +57,4 @@ services:
 
 volumes:
   letsencrypt:
+  pgdata:

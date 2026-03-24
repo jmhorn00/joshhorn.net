@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{% block meta_description %}{% endblock %}">
   <title>{% block title %}Josh Horn{% endblock %}</title>
-  <link rel="icon" href="{% static 'core/imgs/favicon.ico' %}">
+  <link rel="icon" href="{% static 'core/imgs/jh.svg' %}" type="image/svg+xml">
   <link rel="stylesheet" href="{% static 'core/dist/css/core.css' %}">
   {% block head %}{% endblock %}
 </head>
@@ -18,7 +18,7 @@
       <!-- Top row: brand left, toggle right -->
       <div class="nav-bar">
         <a class="brand-link" href="{% url 'core:home' %}">
-          <span class="brand-monogram" aria-hidden="true">JH</span>
+          <img class="brand-monogram" src="{% static 'core/imgs/jh.svg' %}" alt="JH" width="32" height="32">
           <span class="brand-name">Josh<span class="brand-dot">.</span>Horn</span>
         </a>
 
