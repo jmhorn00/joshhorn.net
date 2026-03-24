@@ -46,6 +46,9 @@ services:
       - traefik.http.routers.web-http.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
     restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 3
 
   watchtower:
     image: containrrr/watchtower
