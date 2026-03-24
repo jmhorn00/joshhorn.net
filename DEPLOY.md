@@ -32,7 +32,7 @@ sudo usermod -aG docker $USER && newgrp docker
 ### 2. Clone the repo
 
 ```bash
-git clone https://github.com/jmhorn00/joshhorn.net /opt/joshhorn.net
+sudo git clone https://github.com/jmhorn00/joshhorn.net /opt/joshhorn.net
 cd /opt/joshhorn.net
 ```
 
