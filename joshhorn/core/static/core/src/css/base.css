@@ -13,13 +13,19 @@ body {
   margin: 0;
   min-height: 100vh;
   background: var(--background-grad);
-  /* no padding-top — hero handles its own spacing */
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
 }
 
 :root {
   --max-w: 68rem;
   --container-padding: 1.25rem;
-  --nav-h: 3.75rem; /* matches .nav-container height */
+  --nav-h: 3.75rem;
 }
 
 .container {
@@ -31,7 +37,6 @@ body {
   padding-right: var(--container-padding);
 }
 
-/* Legacy section helper — kept for inner pages */
 .section {
   display: flex;
   flex-direction: column;

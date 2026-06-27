@@ -22,7 +22,7 @@
       });
     }
 
-    // ── Nav scroll effect (stronger glass on scroll) ────────────
+    // ── Nav scroll effect ───────────────────────────────────────
     const onScroll = () => {
       nav.classList.toggle("scrolled", window.scrollY > 30);
       updateActiveLink();
@@ -31,20 +31,18 @@
     onScroll();
 
     // ── Smooth-scroll for same-page anchor links ────────────────
-    // Intercept any link whose href points to an #id on this page.
     document.querySelectorAll('a[href*="#"]').forEach((link) => {
       link.addEventListener("click", (e) => {
         let href = link.getAttribute("href");
-        // Strip the origin+pathname to get just the hash portion
         let hash = "";
         try {
           const url = new URL(href, window.location.href);
           if (url.pathname === window.location.pathname || url.pathname === "/") {
-            hash = url.hash; // e.g. "#about"
+            hash = url.hash;
           }
         } catch (_) {}
 
-        if (!hash) return; // not a same-page anchor
+        if (!hash) return;
         const target = document.querySelector(hash);
         if (!target) return;
 
@@ -53,25 +51,20 @@
         if (btn) btn.setAttribute("aria-expanded", "false");
 
         target.scrollIntoView({ behavior: "smooth", block: "start" });
-        // Update URL without reloading
         history.pushState(null, "", hash);
       });
     });
 
-    // ── Active nav link based on current scroll position ───────
+    // ── Active nav link based on scroll position ────────────────
     const sections = document.querySelectorAll("section[id]");
 
     function updateActiveLink() {
       if (!sections.length) return;
-
-      // Find the section whose top is closest above the viewport centre
       const mid = window.scrollY + window.innerHeight * 0.35;
       let current = sections[0].id;
-
       sections.forEach((s) => {
         if (s.offsetTop <= mid) current = s.id;
       });
-
       navLinks.forEach((link) => {
         const section = link.dataset.section;
         link.classList.toggle("active", section === current);
@@ -83,7 +76,7 @@
       ".section-title, .section-label, .section-subtitle, " +
       ".featured-card, .project-card, .service-detail-card, " +
       ".skill-card, .about-body, .about-card, " +
-      ".contact-info, .contact-form-wrap, .page-title"
+      ".contact-info, .contact-form-wrap, .page-title, .about-stats"
     );
 
     if ("IntersectionObserver" in window) {
@@ -96,7 +89,7 @@
             }
           });
         },
-        { threshold: 0.1 }
+        { threshold: 0.08 }
       );
       revealEls.forEach((el) => {
         el.classList.add("reveal");
@@ -104,6 +97,66 @@
       });
     } else {
       revealEls.forEach((el) => el.classList.add("is-visible"));
+    }
+
+    // ── Staggered card reveal ───────────────────────────────────
+    const cardGrids = document.querySelectorAll(".cards-grid, .featured-grid, .skills-strip");
+    if ("IntersectionObserver" in window) {
+      const staggerObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              Array.from(entry.target.children).forEach((child, i) => {
+                child.style.transitionDelay = `${i * 60}ms`;
+                child.classList.add("reveal", "is-visible");
+              });
+              staggerObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.05 }
+      );
+      cardGrids.forEach((grid) => staggerObserver.observe(grid));
+    }
+
+    // ── Typing animation for hero subtitle ─────────────────────
+    const typedEl = document.getElementById("heroTyped");
+    if (typedEl) {
+      const words = [
+        "web applications.",
+        "clean interfaces.",
+        "backend APIs.",
+        "full-stack solutions.",
+      ];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function type() {
+        const currentWord = words[wordIndex];
+
+        if (isDeleting) {
+          typedEl.textContent = currentWord.slice(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typedEl.textContent = currentWord.slice(0, charIndex + 1);
+          charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          setTimeout(() => { isDeleting = true; type(); }, 2200);
+          return;
+        }
+
+        if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+
+        setTimeout(type, isDeleting ? 55 : 85);
+      }
+
+      setTimeout(type, 1100);
     }
   });
 })();

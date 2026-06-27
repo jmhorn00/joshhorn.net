@@ -1,5 +1,15 @@
 :root {
-  --font-clr: 56, 189, 248;       /* electric sky blue */
-  --text-clr: 226, 232, 240;      /* cool slate white */
+  --accent:   56, 189, 248;          /* sky-400  #38BDF8 */
+  --accent-2: 139, 92,  246;         /* violet-500 #8B5CF6 */
+  --font-clr: 56, 189, 248;          /* compat alias */
+  --text-clr: 226, 232, 240;         /* slate-200 */
+
   --background-grad: linear-gradient(160deg, #030712 0%, #080f1f 45%, #020509 100%);
+
+  /* Reusable gradient shortcuts */
+  --grad-accent:      linear-gradient(135deg, rgb(var(--accent)) 0%, rgb(var(--accent-2)) 100%);
+  --grad-text:        linear-gradient(90deg, rgb(var(--accent)) 0%, #bae6fd 45%, rgb(var(--accent-2)) 85%, rgb(var(--accent)) 100%);
+
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
 }

@@ -58,7 +58,7 @@
       });
     }
     const revealEls = document.querySelectorAll(
-      ".section-title, .section-label, .section-subtitle, .featured-card, .project-card, .service-detail-card, .skill-card, .about-body, .about-card, .contact-info, .contact-form-wrap, .page-title"
+      ".section-title, .section-label, .section-subtitle, .featured-card, .project-card, .service-detail-card, .skill-card, .about-body, .about-card, .contact-info, .contact-form-wrap, .page-title, .about-stats"
     );
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
@@ -70,7 +70,7 @@
             }
           });
         },
-        { threshold: 0.1 }
+        { threshold: 0.08 }
       );
       revealEls.forEach((el) => {
         el.classList.add("reveal");
@@ -78,6 +78,60 @@
       });
     } else {
       revealEls.forEach((el) => el.classList.add("is-visible"));
+    }
+    const cardGrids = document.querySelectorAll(".cards-grid, .featured-grid, .skills-strip");
+    if ("IntersectionObserver" in window) {
+      const staggerObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              Array.from(entry.target.children).forEach((child, i) => {
+                child.style.transitionDelay = `${i * 60}ms`;
+                child.classList.add("reveal", "is-visible");
+              });
+              staggerObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.05 }
+      );
+      cardGrids.forEach((grid) => staggerObserver.observe(grid));
+    }
+    const typedEl = document.getElementById("heroTyped");
+    if (typedEl) {
+      let type2 = function() {
+        const currentWord = words[wordIndex];
+        if (isDeleting) {
+          typedEl.textContent = currentWord.slice(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typedEl.textContent = currentWord.slice(0, charIndex + 1);
+          charIndex++;
+        }
+        if (!isDeleting && charIndex === currentWord.length) {
+          setTimeout(() => {
+            isDeleting = true;
+            type2();
+          }, 2200);
+          return;
+        }
+        if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+        setTimeout(type2, isDeleting ? 55 : 85);
+      };
+      var type = type2;
+      const words = [
+        "web applications.",
+        "clean interfaces.",
+        "backend APIs.",
+        "full-stack solutions."
+      ];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      setTimeout(type2, 1100);
     }
   });
 })();
