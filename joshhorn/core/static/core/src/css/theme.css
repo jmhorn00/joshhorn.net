@@ -4,7 +4,7 @@
   --font-clr: 56, 189, 248;          /* compat alias */
   --text-clr: 226, 232, 240;         /* slate-200 */
 
-  --background-grad: linear-gradient(160deg, #030712 0%, #080f1f 45%, #020509 100%);
+  --background-grad: linear-gradient(160deg, #060d1f 0%, #0b1530 45%, #050a18 100%);
 
   /* Reusable gradient shortcuts */
   --grad-accent:      linear-gradient(135deg, rgb(var(--accent)) 0%, rgb(var(--accent-2)) 100%);
