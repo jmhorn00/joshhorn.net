@@ -48,7 +48,7 @@ h1, h2, h3, h4 {
   --font-clr: 56, 189, 248;          /* compat alias */
   --text-clr: 226, 232, 240;         /* slate-200 */
 
-  --background-grad: linear-gradient(160deg, #030712 0%, #080f1f 45%, #020509 100%);
+  --background-grad: linear-gradient(160deg, #060d1f 0%, #0b1530 45%, #050a18 100%);
 
   /* Reusable gradient shortcuts */
   --grad-accent:      linear-gradient(135deg, rgb(var(--accent)) 0%, rgb(var(--accent-2)) 100%);
@@ -262,28 +262,17 @@ section[id] {
   background: rgba(0, 0, 0, 0.18);
 }
 .section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
+  display: inline-block;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: rgb(var(--accent));
   margin-bottom: 0.85rem;
-  border: 1px solid rgba(var(--accent), 0.25);
+  border: 1px solid rgba(var(--accent), 0.22);
   padding: 0.28rem 0.85rem;
   border-radius: 999px;
   background: rgba(var(--accent), 0.07);
-}
-.section-label::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgb(var(--accent));
-  opacity: 0.8;
 }
 .section-title {
   font-family: var(--font-display);
@@ -295,11 +284,11 @@ section[id] {
   letter-spacing: -0.02em;
 }
 .section-subtitle {
-  font-size: clamp(0.92rem, 2.5vw, 1.05rem);
-  color: rgba(var(--text-clr), 0.48);
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  color: rgba(var(--text-clr), 0.65);
   margin: 0 0 2.75rem;
   max-width: 42rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 .cards-grid {
   display: grid;
@@ -341,34 +330,27 @@ section[id] {
   overflow: hidden;
 }
 .hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(var(--accent), 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(var(--accent), 0.04) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 90% 60% at 50% 50%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 50%, black 30%, transparent 100%);
+  display: none;
 }
 .hero-glow {
   position: absolute;
   border-radius: 999px;
-  filter: blur(90px);
+  filter: blur(120px);
 }
 .hero-glow--1 {
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(var(--accent), 0.13) 0%, transparent 70%);
-  top: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(var(--accent), 0.07) 0%, transparent 70%);
+  top: -150px;
   left: 50%;
-  transform: translateX(-55%);
+  transform: translateX(-50%);
 }
 .hero-glow--2 {
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle, rgba(var(--accent-2), 0.11) 0%, transparent 70%);
-  bottom: -80px;
-  right: -100px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(var(--accent-2), 0.06) 0%, transparent 70%);
+  bottom: -60px;
+  right: -80px;
 }
 /* Hero content */
 .hero-content {
@@ -452,9 +434,9 @@ section[id] {
 }
 .hero-description {
   max-width: 36rem;
-  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-  line-height: 1.75;
-  color: rgba(var(--text-clr), 0.48);
+  font-size: clamp(0.95rem, 2.5vw, 1.08rem);
+  line-height: 1.8;
+  color: rgba(var(--text-clr), 0.68);
   margin: 0.25rem 0;
   animation: fadeUp 0.6s ease both 0.35s;
 }
@@ -657,9 +639,9 @@ section[id] {
 }
 .featured-card-desc {
   margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: rgba(var(--text-clr), 0.5);
+  font-size: 0.93rem;
+  line-height: 1.7;
+  color: rgba(var(--text-clr), 0.7);
   flex: 1;
 }
 .featured-link {
@@ -764,7 +746,7 @@ section[id] {
   margin: 0;
   font-size: 0.93rem;
   line-height: 1.7;
-  color: rgba(var(--text-clr), 0.55);
+  color: rgba(var(--text-clr), 0.72);
   flex: 1;
 }
 .service-price-item {
@@ -829,9 +811,9 @@ section[id] {
 }
 .project-card-desc {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: 0.93rem;
   line-height: 1.7;
-  color: rgba(var(--text-clr), 0.52);
+  color: rgba(var(--text-clr), 0.72);
   flex: 1;
 }
 .project-card-links {
@@ -886,9 +868,9 @@ section[id] {
 }
 .about-text {
   margin: 0 0 0.8rem;
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: rgba(var(--text-clr), 0.6);
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: rgba(var(--text-clr), 0.75);
 }
 .about-text:last-child { margin-bottom: 0; }
 .about-list {
@@ -900,9 +882,9 @@ section[id] {
   gap: 0.5rem;
 }
 .about-list li {
-  font-size: 0.92rem;
-  color: rgba(var(--text-clr), 0.62);
-  line-height: 1.5;
+  font-size: 0.93rem;
+  color: rgba(var(--text-clr), 0.75);
+  line-height: 1.6;
   padding-left: 1rem;
   position: relative;
 }
@@ -1184,7 +1166,7 @@ section[id] {
     padding: 0.4rem 0.7rem;
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(var(--text-clr), 0.48);
+    color: rgba(var(--text-clr), 0.62);
     border-radius: 7px;
     margin: 0;
     max-width: unset;
@@ -1238,16 +1220,16 @@ section[id] {
 ========================= */
 .glass {
   position: relative;
-  background: rgba(8, 20, 48, 0.55);
+  background: rgba(12, 25, 55, 0.65);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+  box-shadow: 0 4px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .glass:hover {
-  border-color: rgba(var(--accent), 0.18);
+  border-color: rgba(var(--accent), 0.22);
 }
 .navbar.is-open.glass {
   border-radius: 0;
