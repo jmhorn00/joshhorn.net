@@ -25,3 +25,5 @@ Pages are in `src/pages/`, the header and footer in `src/components/`, and color
 ## Deploy
 
 Pushing to `main` builds an nginx image with the static site and publishes it to ghcr.io; see [DEPLOY.md](DEPLOY.md).
+
+The site can also be deployed to Cloudflare Workers as static assets; `wrangler.jsonc` builds the site and serves `dist/`.
