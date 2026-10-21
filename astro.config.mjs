@@ -5,4 +5,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://joshhorn.net',
   integrations: [sitemap()],
+  redirects: {
+    '/projects': '/work/',
+  },
 });

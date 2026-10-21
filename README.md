@@ -18,8 +18,9 @@ All site content lives in plain TypeScript data files, so updates don't require 
 
 | File | What it controls |
 |------|------------------|
-| `src/data/profile.ts` | Name, contact links, summary, stats, experience, education, skills, projects |
-| `src/data/services.ts` | Services page cards and the "process" steps |
+| `src/data/profile.ts` | Name, contact links, summary, experience, education, skills |
+| `src/data/services.ts` | Services page |
+| `src/data/work.ts` | Case studies under /work/ |
 
 Pages are in `src/pages/`, the header and footer in `src/components/`, and colors and fonts in `src/styles/global.css`.
 

@@ -1,0 +1,108 @@
+---
+import type { CaseStudy } from '../data/work';
+
+interface Props {
+  items: CaseStudy[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="work-list">
+  {
+    items.map((w) => (
+      <li>
+        <a href={`/work/${w.slug}/`}>
+          <span class="kind">{w.kind}</span>
+          <span class="title">{w.title}</span>
+          <span class="summary">{w.summary}</span>
+          <span class="stack">{w.stack.slice(0, 4).join(' · ')}</span>
+        </a>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .work-list li + li {
+    border-top: 1px solid var(--rule);
+  }
+
+  a {
+    position: relative;
+    display: grid;
+    gap: 0.35rem 2rem;
+    padding-block: 1.5rem;
+    text-decoration: none;
+  }
+
+  @media (min-width: 720px) {
+    a {
+      grid-template-columns: 7.5rem 1fr;
+    }
+
+    .kind {
+      grid-row: span 3;
+    }
+  }
+
+  li:first-child a {
+    padding-top: 0.25rem;
+  }
+
+  .kind {
+    padding-top: 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .title {
+    font-family: var(--serif);
+    font-size: clamp(1.35rem, 2.4vw, 1.65rem);
+    line-height: 1.2;
+    transition: color 0.15s;
+  }
+
+  /* Absolutely positioned at its static spot, so the hidden arrow never causes a wrap */
+  .title::after {
+    content: '→';
+    position: absolute;
+    margin-left: 0.3em;
+    color: var(--accent);
+    opacity: 0;
+    transform: translateX(-0.3em);
+    transition:
+      opacity 0.15s,
+      transform 0.15s;
+  }
+
+  a:hover .title,
+  a:focus-visible .title {
+    color: var(--accent);
+  }
+
+  a:hover .title::after,
+  a:focus-visible .title::after {
+    opacity: 1;
+    transform: none;
+  }
+
+  .summary {
+    max-width: var(--measure);
+    color: var(--ink-2);
+  }
+
+  .stack {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .title::after {
+      transition: none;
+    }
+  }
+</style>

@@ -134,34 +134,3 @@ export const skills: { group: string; items: string[] }[] = [
     items: ['Git', 'CI/CD', 'Automated deployments', 'SOPS / age secrets', 'REST API design'],
   },
 ];
-
-export type Project = {
-  name: string;
-  tagline: string;
-  description: string;
-  tags: string[];
-};
-
-export const projects: Project[] = [
-  {
-    name: 'Document RAG Chatbot',
-    tagline: 'Chat with your PDFs, Word docs, and slide decks',
-    description:
-      'Django chatbot with a document ingestion pipeline (MarkItDown) and a retrieval-augmented generation layer over uploaded PDF, Word, and PowerPoint files.',
-    tags: ['Django', 'RAG', 'MarkItDown', 'LLM'],
-  },
-  {
-    name: 'AI Assistant & MCP Tooling',
-    tagline: 'Local-first voice and text assistant',
-    description:
-      'Assistant running on Ollama with tool calling, web research, and smart-home control behind a custom web UI. Includes Model Context Protocol (MCP) servers that expose tools to LLM clients, plus multi-agent orchestration that delegates work across specialized sub-agents.',
-    tags: ['Ollama', 'MCP', 'Multi-agent', 'Python'],
-  },
-  {
-    name: 'Kubernetes Home Cluster',
-    tagline: 'Production-grade GitOps on bare metal',
-    description:
-      'Self-hosted Talos Linux cluster on Proxmox managed entirely through Flux CD GitOps: Cilium CNI, Traefik ingress, cert-manager TLS, SOPS/age encrypted secrets, and image update automation for CI-driven deploys.',
-    tags: ['Talos', 'Flux CD', 'Cilium', 'Traefik'],
-  },
-];
