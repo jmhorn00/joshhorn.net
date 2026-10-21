@@ -7,7 +7,8 @@ Personal portfolio for Josh Horn, built with [Astro](https://astro.build).
 ```bash
 npm install
 npm run dev       # http://localhost:4321
-npm run build     # type-check + static build into dist/
+npm run check     # type-check
+npm run build     # static build into dist/
 npm run preview   # serve the production build
 ```
 
