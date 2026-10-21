@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { services, process } from '../data/services';
+---
+
+<Base
+  title="Services"
+  description="Django web development, Python development, APIs and integrations, AI/LLM applications, healthcare EDI, data and reporting, and cloud/DevOps services from Josh Horn."
+>
+  <PageHero
+    eyebrow="Services"
+    title="How I can help your business"
+    lead="Available for remote contract work and full-time roles. Every engagement gets the same thing: clear communication, maintainable code, and software that's actually deployed and running."
+  >
+    <nav class="jump" aria-label="Jump to a service">
+      {services.map((s) => <a href={`#${s.slug}`}>{s.title}</a>)}
+    </nav>
+  </PageHero>
+
+  <section class="section">
+    <div class="container grid">
+      {services.map((s) => <ServiceCard service={s} detailed />)}
+    </div>
+  </section>
+
+  <section class="section process-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Process</span>
+        <h2>A simple, transparent way of working</h2>
+        <p>No surprises. You'll always know what's being built, why, and when it'll be ready.</p>
+      </div>
+      <ol class="process">
+        {
+          process.map((p) => (
+            <li class="card reveal">
+              <span class="step">{p.step}</span>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CtaBanner />
+</Base>
+
+<style>
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .jump a {
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .jump a:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 760px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .grid :global(.service) {
+    scroll-margin-top: 6rem;
+  }
+
+  .process-section {
+    background: var(--bg-subtle);
+    border-block: 1px solid var(--border);
+  }
+
+  .process {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 700px) {
+    .process {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .process {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .process li {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: 1.6rem;
+  }
+
+  .step {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  .process h3 {
+    font-size: 1.1rem;
+  }
+
+  .process p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+</style>

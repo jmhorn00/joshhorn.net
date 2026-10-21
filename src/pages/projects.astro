@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import Icon from '../components/Icon.astro';
+import { profile, projects } from '../data/profile';
+---
+
+<Base title="Projects" description="Selected projects by Josh Horn: a document RAG chatbot, AI assistant and MCP tooling, and a GitOps-managed Kubernetes home cluster.">
+  <PageHero
+    eyebrow="Projects"
+    title="Selected work"
+    lead="Side projects where I go deep on AI tooling and infrastructure, the same skills I bring to client work."
+  >
+    <div>
+      <a href={profile.github} target="_blank" rel="noopener" class="btn btn-ghost"
+        ><Icon name="github" size={18} /> More on GitHub</a
+      >
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container grid">
+      {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
+    </div>
+  </section>
+
+  <CtaBanner title="Need something like this built?" />
+</Base>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 760px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

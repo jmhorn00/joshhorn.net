@@ -1,0 +1,194 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { profile } from '../data/profile';
+
+const channels = [
+  {
+    icon: 'mail' as const,
+    label: 'Email',
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+    note: 'Best for project inquiries',
+  },
+  {
+    icon: 'linkedin' as const,
+    label: 'LinkedIn',
+    value: 'josh-horn',
+    href: profile.linkedin,
+    note: 'Connect professionally',
+  },
+  {
+    icon: 'github' as const,
+    label: 'GitHub',
+    value: 'jmhorn00',
+    href: profile.github,
+    note: 'See my code',
+  },
+];
+---
+
+<Base title="Contact" description="Get in touch with Josh Horn about Django, Python, EDI, AI, or infrastructure work.">
+  <PageHero
+    eyebrow="Contact"
+    title="Let's build something together"
+    lead={`${profile.availability}. Send a short note about your project, timeline, and goals, and I'll reply within one business day.`}
+  />
+
+  <section class="section">
+    <div class="container grid">
+      {
+        channels.map((c) => (
+          <a
+            href={c.href}
+            class="card channel reveal"
+            target={c.href.startsWith('http') ? '_blank' : undefined}
+            rel={c.href.startsWith('http') ? 'noopener' : undefined}
+          >
+            <div class="icon">
+              <Icon name={c.icon} size={22} />
+            </div>
+            <div class="text">
+              <span class="label">{c.label}</span>
+              <strong>{c.value}</strong>
+              <span class="note">{c.note}</span>
+            </div>
+            <Icon name="arrow" size={18} class="go" />
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="container">
+      <div class="card info reveal">
+        <div>
+          <h2>What to include</h2>
+          <ul>
+            <li><Icon name="check" size={16} /> What you're trying to build or fix</li>
+            <li><Icon name="check" size={16} /> Your existing stack, if any</li>
+            <li><Icon name="check" size={16} /> Rough timeline and budget</li>
+          </ul>
+        </div>
+        <div class="where">
+          <Icon name="pin" size={18} />
+          <span>Based in {profile.location}. Working remotely with teams anywhere in the U.S.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 860px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .channel {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .channel:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 12px;
+    background: var(--gradient);
+    color: #fff;
+  }
+
+  .text {
+    display: grid;
+    min-width: 0;
+  }
+
+  .text strong {
+    overflow-wrap: anywhere;
+    font-size: 1rem;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .note {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+  }
+
+  .channel :global(.go) {
+    color: var(--text-faint);
+    transition: transform 0.2s ease;
+  }
+
+  .channel:hover :global(.go) {
+    transform: translateX(3px);
+    color: var(--accent-text);
+  }
+
+  .info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    padding: 1.9rem;
+  }
+
+  .info h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .info ul {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .info li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-muted);
+  }
+
+  .info li :global(svg) {
+    color: var(--accent-2);
+  }
+
+  .where {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-faint);
+    font-size: 0.92rem;
+    max-width: 22rem;
+  }
+</style>

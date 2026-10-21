@@ -1,0 +1,79 @@
+---
+import Icon from './Icon.astro';
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="left">
+      <a href="/" class="name">{profile.name}</a>
+      <p>{profile.title} · {profile.location}</p>
+    </div>
+    <div class="social">
+      <a href={`mailto:${profile.email}`} aria-label="Email"><Icon name="mail" size={18} /></a>
+      <a href={profile.github} aria-label="GitHub" rel="noopener" target="_blank"
+        ><Icon name="github" size={18} /></a
+      >
+      <a href={profile.linkedin} aria-label="LinkedIn" rel="noopener" target="_blank"
+        ><Icon name="linkedin" size={18} /></a
+      >
+    </div>
+  </div>
+  <div class="container copy">© {year} {profile.name}. Built with Astro.</div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding-block: 2.5rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+  }
+
+  .name {
+    font-weight: 700;
+  }
+
+  .left p {
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+
+  .social {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .social a {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .social a:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .copy {
+    margin-top: 1.5rem;
+    color: var(--text-faint);
+    font-size: 0.82rem;
+  }
+</style>
