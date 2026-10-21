@@ -1,79 +1,70 @@
 ---
-import Icon from './Icon.astro';
 import { profile } from '../data/profile';
 
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
-  <div class="container inner">
-    <div class="left">
-      <a href="/" class="name">{profile.name}</a>
-      <p>{profile.title} · {profile.location}</p>
-    </div>
-    <div class="social">
-      <a href={`mailto:${profile.email}`} aria-label="Email"><Icon name="mail" size={18} /></a>
-      <a href={profile.github} aria-label="GitHub" rel="noopener" target="_blank"
-        ><Icon name="github" size={18} /></a
-      >
-      <a href={profile.linkedin} aria-label="LinkedIn" rel="noopener" target="_blank"
-        ><Icon name="linkedin" size={18} /></a
-      >
-    </div>
+<footer class="wrap site-footer">
+  <div class="cols">
+    <p>© {year} {profile.name} · {profile.location}</p>
+    <ul>
+      <li><a href={`mailto:${profile.email}`}>Email</a></li>
+      <li><a href={profile.github} rel="noopener">GitHub</a></li>
+      <li><a href={profile.linkedin} rel="noopener">LinkedIn</a></li>
+      <li><button type="button" id="theme-toggle">Switch theme</button></li>
+    </ul>
   </div>
-  <div class="container copy">© {year} {profile.name}. Built with Astro.</div>
 </footer>
+
+<script>
+  const root = document.documentElement;
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const dark = root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const next = dark ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch (_) {}
+  });
+</script>
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--border);
-    padding-block: 2.5rem 2rem;
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
 
-  .inner {
+  .cols {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
-    gap: 1.25rem;
+    gap: 1rem 2rem;
+    padding-block: 2rem 3rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.92rem;
+    color: var(--ink-3);
   }
 
-  .name {
-    font-weight: 700;
-  }
-
-  .left p {
-    color: var(--text-faint);
-    font-size: 0.9rem;
-  }
-
-  .social {
+  ul {
     display: flex;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
   }
 
-  .social a {
-    display: grid;
-    place-items: center;
-    width: 2.4rem;
-    height: 2.4rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    transition:
-      color 0.15s ease,
-      border-color 0.15s ease;
+  button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 0.2em;
+    cursor: pointer;
   }
 
-  .social a:hover {
-    color: var(--text);
-    border-color: var(--accent);
-  }
-
-  .copy {
-    margin-top: 1.5rem;
-    color: var(--text-faint);
-    font-size: 0.82rem;
+  button:hover {
+    text-decoration-color: var(--accent);
   }
 </style>

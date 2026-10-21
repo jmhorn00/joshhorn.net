@@ -1,601 +1,268 @@
 ---
 import Base from '../layouts/Base.astro';
-import Icon from '../components/Icon.astro';
-import ServiceCard from '../components/ServiceCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import { profile, stats, experience, projects, skills } from '../data/profile';
+import { profile, experience, projects } from '../data/profile';
 import { services } from '../data/services';
 
-const current = experience[0]!;
-const currentRole = current.roles[0]!;
-const featuredServices = services.slice(0, 6);
-const techStrip = ['Python', 'Django', 'FastAPI', 'PostgreSQL', 'SQL Server', 'HTMX', 'Docker', 'Kubernetes', 'Azure', 'Anthropic', 'OpenAI', 'MCP', 'Power BI', 'X12 EDI'];
+const job = experience[0]!;
+const role = job.roles[0]!;
 ---
 
 <Base>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="grid-lines"></div>
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-    </div>
-
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <span class="badge"><span class="dot"></span>{profile.availability}</span>
-        <h1>
-          I build <span class="gradient-text">reliable Python &amp; Django</span> software that does real work.
-        </h1>
-        <p class="lead">
-          I'm {profile.name}, a full-stack Python & Django developer. I ship web apps, data pipelines,
-          healthcare EDI integrations, and AI-powered tools, plus the infrastructure they run on.
+  <section class="intro">
+    <div class="intro-text">
+      <h1>
+        I'm Josh. I build web apps, integrations, and data tools in <em>Python and Django</em>, mostly
+        for the healthcare and insurance world.
+      </h1>
+      <div class="prose lede">
+        <p>
+          For the last couple of years I've been the developer at a healthcare claims administrator, where
+          my work runs from Django apps and SQL Server to X12 EDI files, Power BI, and the VMware boxes
+          everything sits on. Outside of work I tinker with language models and run a small Kubernetes
+          cluster at home.
         </p>
-        <div class="hero-actions">
-          <a href="/services/" class="btn btn-primary">View services <Icon name="arrow" size={18} /></a>
-          <a href="/experience/" class="btn btn-ghost">See my experience</a>
-        </div>
-        <div class="meta">
-          <span><Icon name="pin" size={16} /> {profile.location} · Remote</span>
-          <a href={profile.github} target="_blank" rel="noopener"><Icon name="github" size={16} /> jmhorn00</a>
-          <a href={profile.linkedin} target="_blank" rel="noopener"><Icon name="linkedin" size={16} /> LinkedIn</a>
-        </div>
+        <p>I'm open to remote full-time roles and contract projects.</p>
       </div>
-
-      <div class="hero-visual" aria-hidden="true">
-        <div class="window">
-          <div class="window-bar">
-            <span></span><span></span><span></span>
-            <em>josh_horn.py</em>
-          </div>
-          <pre><code><span class="k">class</span> <span class="c">Developer</span>:
-    name = <span class="s">"Josh Horn"</span>
-    role = <span class="s">"Full-Stack Python / Django"</span>
-    based_in = <span class="s">"Bryan, TX"</span>
-
-    stack = [
-        <span class="s">"Django"</span>, <span class="s">"FastAPI"</span>, <span class="s">"PostgreSQL"</span>,
-        <span class="s">"Docker"</span>, <span class="s">"Kubernetes"</span>, <span class="s">"Azure"</span>,
-    ]
-    domains = [<span class="s">"Healthcare EDI"</span>, <span class="s">"AI / LLM"</span>]
-
-    <span class="k">def</span> <span class="f">hire</span>(self, project):
-        <span class="k">return</span> self.<span class="f">ship</span>(project)  <span class="cm"># on time</span></code></pre>
-        </div>
-        <div class="float-card fc-1">
-          <strong>834 · 837 · 835</strong>
-          <span>X12 EDI, in production</span>
-        </div>
-        <div class="float-card fc-2">
-          <strong>RAG + MCP</strong>
-          <span>LLM apps, end to end</span>
-        </div>
-      </div>
+      <p class="links">
+        <a class="arrow-link" href="/services/">What I can help with</a>
+        <a href="/experience/">Experience</a>
+      </p>
     </div>
+
+    <dl class="facts">
+      <div>
+        <dt>Currently</dt>
+        <dd>{role.title.split(' / ')[0]} at {job.company}</dd>
+      </div>
+      <div>
+        <dt>Based in</dt>
+        <dd>{profile.location}, working remotely</dd>
+      </div>
+      <div>
+        <dt>Education</dt>
+        <dd>B.S. MIS, Oklahoma State</dd>
+      </div>
+      <div>
+        <dt>Email</dt>
+        <dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd>
+      </div>
+    </dl>
   </section>
 
-  <!-- Tech strip -->
-  <section class="strip" aria-label="Technologies">
-    <div class="marquee">
-      <div class="track">
-        {[...techStrip, ...techStrip].map((t, i) => <span aria-hidden={i >= techStrip.length ? 'true' : undefined}>{t}</span>)}
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="section stats-section">
-    <div class="container">
-      <div class="stats">
+  <section class="row">
+    <h2 class="label">What I do</h2>
+    <div>
+      <ol class="service-list">
         {
-          stats.map((s) => (
-            <div class="stat reveal">
-              <strong class="gradient-text">{s.value}</strong>
-              <span>{s.label}</span>
-            </div>
+          services.map((s) => (
+            <li>
+              <a href={`/services/#${s.slug}`}>{s.title}</a>
+            </li>
           ))
         }
-      </div>
+      </ol>
+      <p class="more"><a class="arrow-link" href="/services/">Details on each</a></p>
     </div>
   </section>
 
-  <!-- Services preview -->
-  <section class="section services-preview">
-    <div class="container">
-      <div class="head-row">
-        <div class="section-head">
-          <span class="eyebrow">What I do</span>
-          <h2>Services built around real business problems</h2>
-          <p>
-            From a Django portal for your clients to the EDI feed that keeps your claims system in sync,
-            I can take a project from idea to production.
-          </p>
-        </div>
-        <a href="/services/" class="btn btn-ghost">All services <Icon name="arrow" size={18} /></a>
-      </div>
-      <div class="services-grid">
-        {featuredServices.map((s) => <ServiceCard service={s} />)}
-      </div>
+  <section class="row">
+    <h2 class="label">Day job</h2>
+    <div class="prose">
+      <h3 class="job">
+        {role.title}, <span>{job.company}</span>
+      </h3>
+      <p class="when">{role.period}</p>
+      <ul class="bullets">
+        {role.highlights.slice(0, 3).map((h) => <li>{h}</li>)}
+      </ul>
+      <p class="more"><a class="arrow-link" href="/experience/">Full experience</a></p>
     </div>
   </section>
 
-  <!-- Current role -->
-  <section class="section current">
-    <div class="container current-grid">
-      <div class="section-head">
-        <span class="eyebrow">Currently</span>
-        <h2>{currentRole.title}</h2>
-        <p>
-          At <strong>{current.company}</strong> in {current.location}, a healthcare claims administrator,
-          since {currentRole.period.split(' – ')[0]}.
-        </p>
-        <a href="/experience/" class="btn btn-ghost">Full experience <Icon name="arrow" size={18} /></a>
-      </div>
-      <ul class="highlights">
+  <section class="row">
+    <h2 class="label">On the side</h2>
+    <div>
+      <ul class="projects">
         {
-          currentRole.highlights.slice(0, 4).map((h) => (
-            <li class="card reveal">
-              <Icon name="check" size={18} />
-              <span>{h}</span>
+          projects.map((p) => (
+            <li>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
             </li>
           ))
         }
       </ul>
+      <p class="more"><a class="arrow-link" href="/projects/">More on projects</a></p>
     </div>
   </section>
 
-  <!-- Projects -->
-  <section class="section">
-    <div class="container">
-      <div class="head-row">
-        <div class="section-head">
-          <span class="eyebrow">Selected projects</span>
-          <h2>Things I've built outside the day job</h2>
-        </div>
-        <a href="/projects/" class="btn btn-ghost">All projects <Icon name="arrow" size={18} /></a>
-      </div>
-      <div class="projects-grid">
-        {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
-      </div>
+  <section class="row">
+    <h2 class="label">Say hello</h2>
+    <div class="prose">
+      <p class="hello">
+        If you have something you'd like built or fixed, the easiest way to reach me is email:{' '}
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>.
+      </p>
     </div>
   </section>
-
-  <!-- Skills -->
-  <section class="section skills-section">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Toolkit</span>
-        <h2>Comfortable across the whole stack</h2>
-        <p>And the infrastructure underneath it.</p>
-      </div>
-      <div class="skills-grid">
-        {
-          skills.map((g) => (
-            <div class="skill-group reveal">
-              <h3>{g.group}</h3>
-              <div class="chip-list">
-                {g.items.map((i) => (
-                  <span class="chip">{i}</span>
-                ))}
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <CtaBanner />
 </Base>
 
 <style>
-  /* ---------- Hero ---------- */
-  .hero {
-    position: relative;
-    overflow: hidden;
-    padding-block: 4.5rem 5rem;
+  .intro {
+    display: grid;
+    gap: 3rem;
+    padding-block: 3rem 4.5rem;
   }
 
   @media (min-width: 960px) {
-    .hero {
-      padding-block: 6.5rem 7rem;
+    .intro {
+      grid-template-columns: 1fr 17rem;
+      gap: 5rem;
+      padding-block: 5rem 6rem;
+      align-items: end;
     }
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-    opacity: 0.6;
-  }
-
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.45;
-  }
-
-  .orb-1 {
-    width: 32rem;
-    height: 32rem;
-    top: -12rem;
-    right: -6rem;
-    background: var(--accent);
-    opacity: 0.22;
-  }
-
-  .orb-2 {
-    width: 26rem;
-    height: 26rem;
-    bottom: -12rem;
-    left: -8rem;
-    background: var(--accent-2);
-    opacity: 0.16;
-  }
-
-  .hero-inner {
-    position: relative;
-    display: grid;
-    gap: 3.5rem;
-    align-items: center;
-  }
-
-  @media (min-width: 960px) {
-    .hero-inner {
-      grid-template-columns: 1.15fr 1fr;
-      gap: 3rem;
-    }
-  }
-
-  .hero-copy {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .badge {
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.4rem 0.9rem 0.4rem 0.75rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--bg-elevated);
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
   }
 
   h1 {
-    font-size: clamp(2.5rem, 6vw, 4.1rem);
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-    font-weight: 800;
+    font-size: clamp(2rem, 4.6vw, 3.3rem);
+    line-height: 1.12;
+    max-width: 22ch;
   }
 
-  .lead {
-    font-size: clamp(1.05rem, 1.6vw, 1.22rem);
-    color: var(--text-muted);
-    max-width: 36rem;
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
   }
 
-  .hero-actions {
+  .lede {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .links {
     display: flex;
     flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .facts {
+    margin: 0;
+    display: grid;
+    gap: 1.1rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+
+  .facts dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .facts dd {
+    margin: 0.1rem 0 0;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+
+  .service-list {
+    columns: 2 14rem;
+    column-gap: 3rem;
+    counter-reset: svc;
+  }
+
+  .service-list li {
+    break-inside: avoid;
+    counter-increment: svc;
+    display: flex;
+    gap: 0.9rem;
+    padding-block: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--serif);
+    font-size: 1.3rem;
+  }
+
+  .service-list li::before {
+    content: counter(svc, decimal-leading-zero);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--ink-3);
+    padding-top: 0.45rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .service-list a {
+    text-decoration: none;
+  }
+
+  .service-list a:hover {
+    color: var(--accent);
+  }
+
+  .more {
+    margin-top: 1.75rem;
+  }
+
+  .job {
+    font-size: 1.5rem;
+    color: var(--ink);
+  }
+
+  .job span {
+    font-style: italic;
+  }
+
+  .when {
+    margin-top: 0.25rem;
+    font-size: 0.92rem;
+    color: var(--ink-3);
+  }
+
+  .bullets {
+    margin-top: 1.25rem;
+    display: grid;
     gap: 0.75rem;
   }
 
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.4rem;
-    color: var(--text-faint);
-    font-size: 0.9rem;
-  }
-
-  .meta > * {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .meta a:hover {
-    color: var(--text);
-  }
-
-  /* Code window */
-  .hero-visual {
+  .bullets li {
+    padding-left: 1.1rem;
     position: relative;
-    min-width: 0;
-    padding: 1.5rem 0 2.5rem;
   }
 
-  .window {
-    border-radius: 18px;
-    background: #0d1222;
-    border: 1px solid #222b45;
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-  }
-
-  .window-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid #1d2540;
-    background: #10162a;
-  }
-
-  .window-bar span {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    background: #2a3352;
-  }
-
-  .window-bar span:nth-child(1) { background: #f87171; }
-  .window-bar span:nth-child(2) { background: #fbbf24; }
-  .window-bar span:nth-child(3) { background: #34d399; }
-
-  .window-bar em {
-    margin-left: auto;
-    font-style: normal;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: #6b7699;
-  }
-
-  pre {
-    margin: 0;
-    padding: 1.3rem 1.4rem 1.5rem;
-    overflow-x: auto;
-    font-family: var(--font-mono);
-    font-size: clamp(0.72rem, 1.4vw, 0.84rem);
-    line-height: 1.75;
-    color: #c9d1e8;
-  }
-
-  .k { color: #c084fc; }
-  .c { color: #67e8f9; }
-  .s { color: #86efac; }
-  .f { color: #93c5fd; }
-  .cm { color: #5b6585; font-style: italic; }
-
-  .float-card {
+  .bullets li::before {
+    content: '–';
     position: absolute;
+    left: 0;
+    color: var(--ink-3);
+  }
+
+  .projects {
     display: grid;
-    gap: 0.1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 14px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-lg);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    animation: float 6s ease-in-out infinite;
+    gap: 2rem;
+    max-width: var(--measure);
   }
 
-  .float-card strong {
-    color: var(--text);
-    font-size: 0.92rem;
+  .projects h3 {
+    font-size: 1.35rem;
   }
 
-  .fc-1 {
-    top: -0.25rem;
-    right: -0.5rem;
+  .projects p {
+    margin-top: 0.4rem;
+    color: var(--ink-2);
   }
 
-  .fc-2 {
-    bottom: -1.5rem;
-    left: -1.25rem;
-    animation-delay: -3s;
+  .hello {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--ink);
   }
 
-  @media (max-width: 600px) {
-    .fc-1 { right: 0; }
-    .fc-2 { left: 0; }
-  }
-
-  @keyframes float {
-    50% { transform: translateY(-8px); }
-  }
-
-  /* ---------- Marquee ---------- */
-  .strip {
-    border-block: 1px solid var(--border);
-    background: var(--bg-elevated);
-    padding-block: 1.1rem;
-  }
-
-  .marquee {
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  }
-
-  .track {
-    display: flex;
-    width: max-content;
-    gap: 3rem;
-    animation: scroll 40s linear infinite;
-  }
-
-  .track span {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    color: var(--text-faint);
-    white-space: nowrap;
-  }
-
-  @keyframes scroll {
-    to { transform: translateX(calc(-50% - 1.5rem)); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .track, .float-card { animation: none; }
-  }
-
-  /* ---------- Stats ---------- */
-  .stats-section {
-    padding-block: 4rem;
-  }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  @media (min-width: 800px) {
-    .stats { grid-template-columns: repeat(4, 1fr); }
-  }
-
-  .stat {
-    display: grid;
-    gap: 0.35rem;
-    padding: 1.75rem 1.5rem;
-    background: var(--bg-elevated);
-  }
-
-  .stat strong {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1;
-  }
-
-  .stat span {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-
-  /* ---------- Sections ---------- */
-  .head-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .head-row .section-head {
-    margin-bottom: 0;
-  }
-
-  .services-preview {
-    padding-top: 2rem;
-  }
-
-  .services-grid,
-  .projects-grid {
-    display: grid;
-    gap: 1.25rem;
-  }
-
-  @media (min-width: 680px) {
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (min-width: 1000px) {
-    .services-grid, .projects-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-
-  .current {
-    background: var(--bg-subtle);
-    border-block: 1px solid var(--border);
-  }
-
-  .current-grid {
-    display: grid;
-    gap: 2.5rem;
-  }
-
-  @media (min-width: 960px) {
-    .current-grid {
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .current-grid .section-head {
-      position: sticky;
-      top: 7rem;
-    }
-  }
-
-  .current-grid .section-head .btn {
-    justify-self: start;
-    margin-top: 0.5rem;
-  }
-
-  .highlights {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .highlights li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.9rem;
-    padding: 1.25rem 1.4rem;
-    color: var(--text);
-  }
-
-  .highlights li :global(svg) {
-    margin-top: 0.2rem;
-    color: var(--accent-2);
-  }
-
-  .skills-grid {
-    display: grid;
-    gap: 1.25rem;
-  }
-
-  @media (min-width: 760px) {
-    .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  .skill-group {
-    display: grid;
-    gap: 0.85rem;
-    padding: 1.4rem 0;
-    border-top: 1px solid var(--border);
-  }
-
-  .skill-group h3 {
-    font-size: 0.82rem;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-faint);
+  .hello a {
+    text-decoration-color: var(--accent);
   }
 </style>

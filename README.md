@@ -20,7 +20,7 @@ All site content lives in plain TypeScript data files, so updates don't require 
 | `src/data/profile.ts` | Name, contact links, summary, stats, experience, education, skills, projects |
 | `src/data/services.ts` | Services page cards and the "process" steps |
 
-Pages are in `src/pages/`, shared UI in `src/components/`, and design tokens (colors, fonts, spacing) in `src/styles/global.css`.
+Pages are in `src/pages/`, the header and footer in `src/components/`, and colors and fonts in `src/styles/global.css`.
 
 ## Deploy
 

@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="page-intro">
+  <h1>{title}</h1>
+  <div class="prose lead"><slot /></div>
+</section>
+
+<style>
+  .page-intro {
+    padding-block: 3rem 3.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .page-intro {
+      padding-block: 4.5rem 4.5rem;
+    }
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  .lead {
+    margin-top: 1.25rem;
+    font-size: 1.12rem;
+  }
+</style>

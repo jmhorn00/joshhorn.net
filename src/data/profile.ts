@@ -10,13 +10,6 @@ export const profile = {
     'Full-stack Python/Django developer with 2+ years in healthcare claims administration, combining production web development with deep healthcare EDI domain knowledge. Comfortable across the whole stack and the infrastructure underneath it, from Django and SQL Server to VMware, Proxmox, Docker, and Kubernetes. I also build LLM-powered applications end to end: chatbots, RAG pipelines, MCP servers, and agentic tooling.',
 };
 
-export const stats = [
-  { value: '2+', label: 'Years shipping production software' },
-  { value: '3', label: 'X12 transaction sets: 834, 837, 835' },
-  { value: '30%', label: 'Faster claims reporting turnaround' },
-  { value: '120', label: 'Person team previously managed' },
-];
-
 export type Role = {
   title: string;
   period: string;

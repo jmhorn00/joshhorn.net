@@ -1,49 +1,52 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import Icon from '../components/Icon.astro';
+import PageIntro from '../components/PageIntro.astro';
 import { profile, projects } from '../data/profile';
 ---
 
-<Base title="Projects" description="Selected projects by Josh Horn: a document RAG chatbot, AI assistant and MCP tooling, and a GitOps-managed Kubernetes home cluster.">
-  <PageHero
-    eyebrow="Projects"
-    title="Selected work"
-    lead="Side projects where I go deep on AI tooling and infrastructure, the same skills I bring to client work."
-  >
-    <div>
-      <a href={profile.github} target="_blank" rel="noopener" class="btn btn-ghost"
-        ><Icon name="github" size={18} /> More on GitHub</a
-      >
-    </div>
-  </PageHero>
+<Base
+  title="Projects"
+  description="Side projects by Josh Horn: a document Q&A chatbot, a local AI assistant with MCP tooling, and a GitOps-managed Kubernetes home cluster."
+>
+  <PageIntro title="Projects">
+    <p>
+      Things I've built on my own time, mostly to learn something properly. Code for some of them is on
+      <a href={profile.github} rel="noopener">GitHub</a>.
+    </p>
+  </PageIntro>
 
-  <section class="section">
-    <div class="container grid">
-      {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
-    </div>
-  </section>
-
-  <CtaBanner title="Need something like this built?" />
+  {
+    projects.map((p) => (
+      <section class="row">
+        <p class="label">{p.tagline}</p>
+        <div class="body">
+          <h2>{p.name}</h2>
+          <p class="desc">{p.description}</p>
+          <p class="stack">{p.tags.join(' · ')}</p>
+        </div>
+      </section>
+    ))
+  }
 </Base>
 
 <style>
-  .grid {
-    display: grid;
-    gap: 1.25rem;
+  .body {
+    max-width: 44rem;
   }
 
-  @media (min-width: 760px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
   }
 
-  @media (min-width: 1100px) {
-    .grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .desc {
+    margin-top: 0.75rem;
+    font-size: 1.08rem;
+    color: var(--ink-2);
+  }
+
+  .stack {
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    color: var(--ink-3);
   }
 </style>

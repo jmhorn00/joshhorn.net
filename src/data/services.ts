@@ -1,8 +1,5 @@
-import type { IconName } from '../components/Icon.astro';
-
 export type Service = {
   slug: string;
-  icon: IconName;
   title: string;
   summary: string;
   deliverables: string[];
@@ -12,137 +9,106 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: 'django',
-    icon: 'layers',
-    title: 'Django Web Development',
+    title: 'Django web development',
     summary:
-      'Custom web applications built on Django, from internal business tools and client portals to content-managed marketing sites.',
+      'Most of what I build is Django: internal tools, client and broker portals, and the occasional marketing site. I like boring, well-structured code that the next person can pick up.',
     deliverables: [
-      'Full-stack Django apps with clean, maintainable models and views',
-      'Client, broker, and staff portals with authentication and permissions',
-      'Wagtail CMS sites your team can edit without a developer',
-      'HTMX-powered interactive UIs without a heavy JavaScript framework',
+      'New Django apps, or features added to one you already have',
+      'Portals with logins, roles, and permissions',
+      'Wagtail CMS sites your team can edit themselves',
+      'Interactive pages with HTMX instead of a heavy JavaScript framework',
     ],
     stack: ['Django', 'Wagtail', 'HTMX', 'PostgreSQL', 'Tailwind'],
   },
   {
     slug: 'python',
-    icon: 'code',
-    title: 'Python Development',
+    title: 'Python development',
     summary:
-      'Scripts, services, and tooling that remove manual work, whether that is a one-off data migration or a long-running production service.',
+      'If someone on your team is doing the same thing by hand every week, it can probably be a Python script. I write the scripts, the scheduled jobs, and the small services around them.',
     deliverables: [
-      'Automation for recurring manual processes',
+      'Automating recurring manual work',
       'Scheduled jobs and file-processing pipelines',
       'Command-line tools and internal utilities',
-      'Refactoring and modernizing existing Python codebases',
+      'Cleaning up and modernizing older Python code',
     ],
     stack: ['Python', 'pandas', 'SQLAlchemy', 'pytest'],
   },
   {
     slug: 'api',
-    icon: 'plug',
-    title: 'APIs & Integrations',
+    title: 'APIs & integrations',
     summary:
-      'REST APIs and system-to-system integrations that let your software talk to vendors, partners, and the rest of your stack.',
+      'Getting two systems to talk to each other reliably, whether that means a REST API, a webhook, or a nightly file drop over SFTP.',
     deliverables: [
       'REST APIs with Django REST Framework or FastAPI',
       'Third-party API and webhook integrations',
       'Managed file transfer and batch file exchanges',
-      'API documentation and versioning strategy',
+      'API docs your partners can actually follow',
     ],
     stack: ['DRF', 'FastAPI', 'OpenAPI', 'MFT'],
   },
   {
-    slug: 'ai',
-    icon: 'sparkles',
-    title: 'AI & LLM Applications',
-    summary:
-      'Practical LLM features built into real products: chatbots grounded in your documents, tool-using agents, and MCP servers.',
-    deliverables: [
-      'Retrieval-augmented generation (RAG) over your documents',
-      'Model Context Protocol (MCP) servers that expose your tools to AI clients',
-      'Agentic workflows with tool and function calling',
-      'Local / private LLM deployments with Ollama',
-    ],
-    stack: ['Anthropic', 'OpenAI', 'Ollama', 'MCP', 'PyTorch'],
-  },
-  {
     slug: 'edi',
-    icon: 'file',
-    title: 'Healthcare EDI Integration',
+    title: 'Healthcare EDI',
     summary:
-      'Hands-on ANSI X12 experience from inside a claims administrator, including the parts that are only learned by fixing real rejections.',
+      'I work with X12 files every day at a claims administrator, so I know where they tend to break: odd payer quirks, rejected acknowledgments, and CMS response files that need reconciling.',
     deliverables: [
-      '834 enrollment, 837 claims, and 835 remittance file generation and ingestion',
-      'Troubleshooting payer acknowledgment and response files',
-      'CMS Section 111 mandatory insurer reporting and reconciliation',
-      'Inbound and outbound integrations with claims administration systems',
+      '834, 837, and 835 file generation and ingestion',
+      'Tracking down why a payer rejected a file',
+      'CMS Section 111 reporting and response reconciliation',
+      'Inbound and outbound feeds for claims systems',
     ],
     stack: ['X12 834', 'X12 837', 'X12 835', 'CMS-111'],
   },
   {
-    slug: 'data',
-    icon: 'chart',
-    title: 'Data, Reporting & Dashboards',
+    slug: 'ai',
+    title: 'AI & LLM features',
     summary:
-      'Turn raw database tables into reports and dashboards people actually use, and automate their delivery on a schedule.',
+      'Practical uses of language models: a chatbot that answers from your own documents, an assistant that can call your internal tools, or an MCP server that exposes your system to AI clients.',
     deliverables: [
-      'Power BI dashboards and paginated reports',
-      'Automated daily, weekly, and monthly reporting',
-      'ETL pipelines between systems',
-      'SQL Server and PostgreSQL tuning, schema changes, and data integrity',
+      'Document search and Q&A (RAG)',
+      'MCP servers for your tools and data',
+      'Agent workflows with tool calling',
+      'Private, self-hosted models with Ollama',
+    ],
+    stack: ['Anthropic', 'OpenAI', 'Ollama', 'MCP'],
+  },
+  {
+    slug: 'data',
+    title: 'Data & reporting',
+    summary:
+      'Reports that land in the right inbox on schedule, and dashboards that answer the questions people actually ask.',
+    deliverables: [
+      'Power BI dashboards',
+      'Automated daily, weekly, and monthly reports',
+      'ETL between systems',
+      'SQL Server and PostgreSQL schema work and query tuning',
     ],
     stack: ['Power BI', 'SQL Server', 'PostgreSQL', 'pandas'],
   },
   {
     slug: 'devops',
-    icon: 'server',
-    title: 'Cloud, DevOps & Infrastructure',
+    title: 'Deployment & infrastructure',
     summary:
-      'Reliable, repeatable deployments, from a single Docker host to a GitOps-managed Kubernetes cluster.',
+      'Getting software off a laptop and running somewhere dependable, from a single Docker host up to a Kubernetes cluster managed with GitOps.',
     deliverables: [
-      'Docker containerization and CI/CD pipelines',
-      'Kubernetes (Talos) clusters managed with Flux CD',
+      'Docker images and CI/CD pipelines',
+      'Kubernetes (Talos) with Flux CD',
       'Azure and GCP Cloud Run deployments',
-      'Traefik ingress, TLS automation, and secrets management',
+      'TLS, reverse proxies, and secrets management',
     ],
     stack: ['Docker', 'Kubernetes', 'Flux CD', 'Azure', 'GCP'],
   },
   {
     slug: 'it',
-    icon: 'shield',
-    title: 'IT & Systems Administration',
+    title: 'IT & systems administration',
     summary:
-      'Support for the servers and endpoints under your software, with experience in small-business and regulated environments.',
+      'The servers and machines underneath the software. I handle this at my day job alongside development.',
     deliverables: [
-      'VMware ESXi / vSphere and Proxmox virtualization',
+      'VMware ESXi and Proxmox virtualization',
       'Endpoint management with ScreenConnect and PDQ',
-      'Linux server setup and hardening',
-      'Coordinating upgrades with third-party IT vendors',
+      'Linux server setup',
+      'Working with outside IT vendors on upgrades',
     ],
     stack: ['VMware', 'Proxmox', 'Linux', 'PDQ'],
-  },
-];
-
-export const process = [
-  {
-    step: '01',
-    title: 'Discover',
-    text: 'A short call to understand the problem, the people affected, and what success looks like.',
-  },
-  {
-    step: '02',
-    title: 'Plan',
-    text: 'A written scope with milestones, a clear estimate, and the trade-offs spelled out up front.',
-  },
-  {
-    step: '03',
-    title: 'Build',
-    text: 'Iterative delivery with regular check-ins, so you see working software early and often.',
-  },
-  {
-    step: '04',
-    title: 'Ship & support',
-    text: 'Deployment, documentation, and handoff, with ongoing support available when you need it.',
   },
 ];

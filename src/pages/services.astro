@@ -1,141 +1,103 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
-import ServiceCard from '../components/ServiceCard.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import { services, process } from '../data/services';
+import PageIntro from '../components/PageIntro.astro';
+import { profile } from '../data/profile';
+import { services } from '../data/services';
 ---
 
 <Base
   title="Services"
-  description="Django web development, Python development, APIs and integrations, AI/LLM applications, healthcare EDI, data and reporting, and cloud/DevOps services from Josh Horn."
+  description="Django and Python development, APIs and integrations, healthcare EDI, AI features, reporting, and infrastructure work from Josh Horn."
 >
-  <PageHero
-    eyebrow="Services"
-    title="How I can help your business"
-    lead="Available for remote contract work and full-time roles. Every engagement gets the same thing: clear communication, maintainable code, and software that's actually deployed and running."
-  >
-    <nav class="jump" aria-label="Jump to a service">
-      {services.map((s) => <a href={`#${s.slug}`}>{s.title}</a>)}
-    </nav>
-  </PageHero>
+  <PageIntro title="Services">
+    <p>
+      These are the kinds of projects I take on, for contract work or as part of a team. If what you
+      need isn't listed but sounds close, ask anyway.
+    </p>
+  </PageIntro>
 
-  <section class="section">
-    <div class="container grid">
-      {services.map((s) => <ServiceCard service={s} detailed />)}
+  {
+    services.map((s, i) => (
+      <section class="row service" id={s.slug}>
+        <p class="label num">{String(i + 1).padStart(2, '0')}</p>
+        <div class="body">
+          <h2>{s.title}</h2>
+          <p class="summary">{s.summary}</p>
+          <ul class="bullets">
+            {s.deliverables.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+          <p class="stack">{s.stack.join(' · ')}</p>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="row">
+    <h2 class="label">How it works</h2>
+    <div class="prose">
+      <p>
+        We start with a call about what you need and why. I'll follow up with a written scope and an
+        estimate, then build in small pieces so you can see progress every week or so rather than at the
+        end. When it's done, I deploy it, write down how it works, and stay available for fixes and
+        changes.
+      </p>
+      <p class="cta">
+        <a class="arrow-link" href={`mailto:${profile.email}`}>Email me about a project</a>
+      </p>
     </div>
   </section>
-
-  <section class="section process-section">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Process</span>
-        <h2>A simple, transparent way of working</h2>
-        <p>No surprises. You'll always know what's being built, why, and when it'll be ready.</p>
-      </div>
-      <ol class="process">
-        {
-          process.map((p) => (
-            <li class="card reveal">
-              <span class="step">{p.step}</span>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <CtaBanner />
 </Base>
 
 <style>
-  .jump {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .service {
+    scroll-margin-top: 1rem;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .body {
+    max-width: 44rem;
+  }
+
+  h2:not(.label) {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+  }
+
+  .summary {
     margin-top: 0.75rem;
+    font-size: 1.08rem;
+    color: var(--ink-2);
   }
 
-  .jump a {
-    padding: 0.4rem 0.85rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--bg-elevated);
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition:
-      color 0.15s ease,
-      border-color 0.15s ease;
-  }
-
-  .jump a:hover {
-    color: var(--text);
-    border-color: var(--accent);
-  }
-
-  .grid {
+  .bullets {
+    margin-top: 1.25rem;
     display: grid;
-    gap: 1.25rem;
+    gap: 0.5rem;
   }
 
-  @media (min-width: 760px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .bullets li {
+    position: relative;
+    padding-left: 1.1rem;
   }
 
-  .grid :global(.service) {
-    scroll-margin-top: 6rem;
+  .bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--ink-3);
   }
 
-  .process-section {
-    background: var(--bg-subtle);
-    border-block: 1px solid var(--border);
+  .stack {
+    margin-top: 1.25rem;
+    font-size: 0.88rem;
+    color: var(--ink-3);
   }
 
-  .process {
-    display: grid;
-    gap: 1.25rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  @media (min-width: 700px) {
-    .process {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1000px) {
-    .process {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  .process li {
-    display: grid;
-    gap: 0.6rem;
-    align-content: start;
-    padding: 1.6rem;
-  }
-
-  .step {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--accent-text);
-  }
-
-  .process h3 {
-    font-size: 1.1rem;
-  }
-
-  .process p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+  .cta {
+    margin-top: 1.5rem;
   }
 </style>
