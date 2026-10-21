@@ -116,10 +116,6 @@ import { profile, experience, education, skills } from '../data/profile';
       font-size: 22pt;
     }
 
-    :global(.page-intro) {
-      padding-block: 0 0.6rem;
-    }
-
     :global(.page-intro h1) {
       display: none;
     }
@@ -148,8 +144,12 @@ import { profile, experience, education, skills } from '../data/profile';
     }
 
     .skills {
-      gap: 0.3rem;
+      gap: 0.15rem;
       max-width: none;
+    }
+
+    .skills div {
+      grid-template-columns: 9rem 1fr;
     }
   }
 

@@ -34,6 +34,7 @@ export const experience: Job[] = [
           'Built an end-to-end EDI integration system in Python that generates outbound files from the company claims system for delivery to vendors and ingests inbound vendor files back into it, automating both directions of the trading-partner exchange.',
           'Work across 834 enrollment, 837 claims, and 835 remittance transactions, reading and troubleshooting payer acknowledgment and response files to resolve rejections.',
           'Create and submit CMS Section 111 mandatory insurer reporting files and reconcile the returned response files.',
+          'Build and maintain a large, layered Django monorepo that houses the company CRM, a job runner system, a ticketing system, and an assistant.',
           'Built internal Python/Django web applications for client and broker communications, plus a wide range of Python tooling, including automated daily, weekly, and monthly reporting and a claims notification system that replaced a manual client outreach process.',
           'Administer company SQL databases: schema changes, query optimization, data integrity, and production availability.',
           'Support virtualized server infrastructure on VMware ESXi and Proxmox, manage endpoints through ScreenConnect and PDQ, and coordinate upgrades and Azure deployments with third-party IT vendors.',

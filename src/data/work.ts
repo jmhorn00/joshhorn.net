@@ -17,6 +17,29 @@ export type CaseStudy = {
 
 export const work: CaseStudy[] = [
   {
+    slug: 'django-platform',
+    title: 'An internal platform in one Django monorepo',
+    summary:
+      'A CRM, a job runner, a ticketing system, and an assistant, built and maintained in a single large, layered Django codebase.',
+    kind: 'Day job',
+    context: 'The Kempton Group Administrators',
+    stack: ['Django', 'Python', 'SQL', 'Monorepo'],
+    sections: [
+      {
+        heading: "What's in it",
+        body: [
+          'Several of the internal systems the company runs on live in one Django monorepo that I build and maintain: the CRM, a job runner system, a ticketing system, and an assistant.',
+        ],
+      },
+      {
+        heading: 'How it is organized',
+        body: [
+          'It is a large codebase with several layers to it. Each system has its own place in the repository, and they share one codebase and one version history.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'edi-integration',
     title: 'Two-way EDI for a claims system',
     summary:
