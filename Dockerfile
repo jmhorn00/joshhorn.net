@@ -1,31 +1,16 @@
-# ---------- Python runtime (Django) ----------
-FROM python:3.12-slim
-
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    DJANGO_SETTINGS_MODULE=joshhorn.settings \
-    PORT=8000
-
+# ---------- Build the static Astro site ----------
+FROM node:22-alpine AS build
 WORKDIR /app
 
-# System deps (kept minimal)
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-     build-essential \
-  && rm -rf /var/lib/apt/lists/*
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Python deps
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+RUN npm run build
 
-# Copy Django project (manage.py lives here)
-COPY joshhorn/ ./
+# ---------- Serve with nginx ----------
+FROM nginx:1.27-alpine
+COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Collect static files via WhiteNoise (dummy key only used at build time)
-RUN SECRET_KEY=dummy-build-only-key python manage.py collectstatic --noinput
-
-EXPOSE 8000
-
-# Run Gunicorn; $PORT is set by Render.com (defaults to 8000 locally)
-CMD ["sh", "-c", "gunicorn joshhorn.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 60"]
+EXPOSE 80

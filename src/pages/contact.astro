@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { profile } from '../data/profile';
+---
+
+<Base title="Contact" description="How to get in touch with Josh Horn.">
+  <PageIntro title="Contact">
+    <p>
+      Email is best. Tell me a bit about what you're working on, what you've got today, and roughly when
+      you need it. I usually reply within a day.
+    </p>
+  </PageIntro>
+
+  <section class="row">
+    <h2 class="label">Email</h2>
+    <p class="big"><a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+  </section>
+
+  <section class="row">
+    <h2 class="label">Elsewhere</h2>
+    <ul class="list">
+      <li><a href={profile.linkedin} rel="noopener">LinkedIn</a></li>
+      <li><a href={profile.github} rel="noopener">GitHub</a></li>
+    </ul>
+  </section>
+
+  <section class="row">
+    <h2 class="label">Location</h2>
+    <p class="prose">{profile.location}. I work remotely with teams anywhere in the U.S.</p>
+  </section>
+</Base>
+
+<style>
+  .big {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .big a {
+    text-decoration-color: var(--accent);
+  }
+
+  .list {
+    display: grid;
+    gap: 0.4rem;
+    font-size: 1.15rem;
+  }
+</style>

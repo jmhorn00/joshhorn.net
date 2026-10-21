@@ -1,0 +1,268 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile, experience, projects } from '../data/profile';
+import { services } from '../data/services';
+
+const job = experience[0]!;
+const role = job.roles[0]!;
+---
+
+<Base>
+  <section class="intro">
+    <div class="intro-text">
+      <h1>
+        I'm Josh. I build web apps, integrations, and data tools in <em>Python and Django</em>, mostly
+        for the healthcare and insurance world.
+      </h1>
+      <div class="prose lede">
+        <p>
+          For the last couple of years I've been the developer at a healthcare claims administrator, where
+          my work runs from Django apps and SQL Server to X12 EDI files, Power BI, and the VMware boxes
+          everything sits on. Outside of work I tinker with language models and run a small Kubernetes
+          cluster at home.
+        </p>
+        <p>I'm open to remote full-time roles and contract projects.</p>
+      </div>
+      <p class="links">
+        <a class="arrow-link" href="/services/">What I can help with</a>
+        <a href="/experience/">Experience</a>
+      </p>
+    </div>
+
+    <dl class="facts">
+      <div>
+        <dt>Currently</dt>
+        <dd>{role.title.split(' / ')[0]} at {job.company}</dd>
+      </div>
+      <div>
+        <dt>Based in</dt>
+        <dd>{profile.location}, working remotely</dd>
+      </div>
+      <div>
+        <dt>Education</dt>
+        <dd>B.S. MIS, Oklahoma State</dd>
+      </div>
+      <div>
+        <dt>Email</dt>
+        <dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="row">
+    <h2 class="label">What I do</h2>
+    <div>
+      <ol class="service-list">
+        {
+          services.map((s) => (
+            <li>
+              <a href={`/services/#${s.slug}`}>{s.title}</a>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="more"><a class="arrow-link" href="/services/">Details on each</a></p>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="label">Day job</h2>
+    <div class="prose">
+      <h3 class="job">
+        {role.title}, <span>{job.company}</span>
+      </h3>
+      <p class="when">{role.period}</p>
+      <ul class="bullets">
+        {role.highlights.slice(0, 3).map((h) => <li>{h}</li>)}
+      </ul>
+      <p class="more"><a class="arrow-link" href="/experience/">Full experience</a></p>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="label">On the side</h2>
+    <div>
+      <ul class="projects">
+        {
+          projects.map((p) => (
+            <li>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="more"><a class="arrow-link" href="/projects/">More on projects</a></p>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="label">Say hello</h2>
+    <div class="prose">
+      <p class="hello">
+        If you have something you'd like built or fixed, the easiest way to reach me is email:{' '}
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro {
+    display: grid;
+    gap: 3rem;
+    padding-block: 3rem 4.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .intro {
+      grid-template-columns: 1fr 17rem;
+      gap: 5rem;
+      padding-block: 5rem 6rem;
+      align-items: end;
+    }
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.6vw, 3.3rem);
+    line-height: 1.12;
+    max-width: 22ch;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .lede {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .facts {
+    margin: 0;
+    display: grid;
+    gap: 1.1rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+
+  .facts dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .facts dd {
+    margin: 0.1rem 0 0;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+
+  .service-list {
+    columns: 2 14rem;
+    column-gap: 3rem;
+    counter-reset: svc;
+  }
+
+  .service-list li {
+    break-inside: avoid;
+    counter-increment: svc;
+    display: flex;
+    gap: 0.9rem;
+    padding-block: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--serif);
+    font-size: 1.3rem;
+  }
+
+  .service-list li::before {
+    content: counter(svc, decimal-leading-zero);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--ink-3);
+    padding-top: 0.45rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .service-list a {
+    text-decoration: none;
+  }
+
+  .service-list a:hover {
+    color: var(--accent);
+  }
+
+  .more {
+    margin-top: 1.75rem;
+  }
+
+  .job {
+    font-size: 1.5rem;
+    color: var(--ink);
+  }
+
+  .job span {
+    font-style: italic;
+  }
+
+  .when {
+    margin-top: 0.25rem;
+    font-size: 0.92rem;
+    color: var(--ink-3);
+  }
+
+  .bullets {
+    margin-top: 1.25rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .bullets li {
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--ink-3);
+  }
+
+  .projects {
+    display: grid;
+    gap: 2rem;
+    max-width: var(--measure);
+  }
+
+  .projects h3 {
+    font-size: 1.35rem;
+  }
+
+  .projects p {
+    margin-top: 0.4rem;
+    color: var(--ink-2);
+  }
+
+  .hello {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  .hello a {
+    text-decoration-color: var(--accent);
+  }
+</style>

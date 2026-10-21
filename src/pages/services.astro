@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { profile } from '../data/profile';
+import { services } from '../data/services';
+---
+
+<Base
+  title="Services"
+  description="Django and Python development, APIs and integrations, healthcare EDI, AI features, reporting, and infrastructure work from Josh Horn."
+>
+  <PageIntro title="Services">
+    <p>
+      These are the kinds of projects I take on, for contract work or as part of a team. If what you
+      need isn't listed but sounds close, ask anyway.
+    </p>
+  </PageIntro>
+
+  {
+    services.map((s, i) => (
+      <section class="row service" id={s.slug}>
+        <p class="label num">{String(i + 1).padStart(2, '0')}</p>
+        <div class="body">
+          <h2>{s.title}</h2>
+          <p class="summary">{s.summary}</p>
+          <ul class="bullets">
+            {s.deliverables.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+          <p class="stack">{s.stack.join(' · ')}</p>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="row">
+    <h2 class="label">How it works</h2>
+    <div class="prose">
+      <p>
+        We start with a call about what you need and why. I'll follow up with a written scope and an
+        estimate, then build in small pieces so you can see progress every week or so rather than at the
+        end. When it's done, I deploy it, write down how it works, and stay available for fixes and
+        changes.
+      </p>
+      <p class="cta">
+        <a class="arrow-link" href={`mailto:${profile.email}`}>Email me about a project</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .service {
+    scroll-margin-top: 1rem;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .body {
+    max-width: 44rem;
+  }
+
+  h2:not(.label) {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+  }
+
+  .summary {
+    margin-top: 0.75rem;
+    font-size: 1.08rem;
+    color: var(--ink-2);
+  }
+
+  .bullets {
+    margin-top: 1.25rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .bullets li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+
+  .bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--ink-3);
+  }
+
+  .stack {
+    margin-top: 1.25rem;
+    font-size: 0.88rem;
+    color: var(--ink-3);
+  }
+
+  .cta {
+    margin-top: 1.5rem;
+  }
+</style>

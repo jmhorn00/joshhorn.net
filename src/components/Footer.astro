@@ -1,0 +1,70 @@
+---
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="wrap site-footer">
+  <div class="cols">
+    <p>© {year} {profile.name} · {profile.location}</p>
+    <ul>
+      <li><a href={`mailto:${profile.email}`}>Email</a></li>
+      <li><a href={profile.github} rel="noopener">GitHub</a></li>
+      <li><a href={profile.linkedin} rel="noopener">LinkedIn</a></li>
+      <li><button type="button" id="theme-toggle">Switch theme</button></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const root = document.documentElement;
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const dark = root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const next = dark ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch (_) {}
+  });
+</script>
+
+<style>
+  .site-footer {
+    margin-top: 4rem;
+  }
+
+  .cols {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-block: 2rem 3rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.92rem;
+    color: var(--ink-3);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+  }
+
+  button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  button:hover {
+    text-decoration-color: var(--accent);
+  }
+</style>
