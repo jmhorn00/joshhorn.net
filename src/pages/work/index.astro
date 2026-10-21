@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import WorkList from '../../components/WorkList.astro';
+import { work } from '../../data/work';
+
+const dayJob = work.filter((w) => w.kind === 'Day job');
+const side = work.filter((w) => w.kind === 'Side project');
+---
+
+<Base
+  title="Work"
+  description="Case studies from Josh Horn: healthcare EDI integration, Django apps, claims reporting, Kubernetes, and AI tooling."
+>
+  <PageIntro title="Work">
+    <p>
+      A closer look at what I've built, at my day job and on my own time. Each one covers the problem,
+      what I built, and the parts that took the most thought.
+    </p>
+  </PageIntro>
+
+  <section class="row">
+    <h2 class="label">At work</h2>
+    <WorkList items={dayJob} />
+  </section>
+
+  <section class="row">
+    <h2 class="label">On my own time</h2>
+    <WorkList items={side} />
+  </section>
+</Base>

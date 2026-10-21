@@ -9,9 +9,15 @@ import { profile, experience, education, skills } from '../data/profile';
   description="Josh Horn's work history: software development, healthcare EDI, data analysis, and IT at The Kempton Group Administrators."
 >
   <PageIntro title="Experience">
-    <p>
-      The short version of my résumé. I'm happy to send the full PDF, just{' '}
-      <a href={`mailto:${profile.email}`}>email me</a>.
+    <p class="no-print">
+      My résumé, in full. This page has a print stylesheet, so printing it or saving it as a PDF gives
+      you a clean copy.
+    </p>
+    <p class="no-print print-row">
+      <button type="button" class="print-btn" data-print>Print or save as PDF</button>
+    </p>
+    <p class="print-only">
+      {profile.email} · {profile.location} · github.com/jmhorn00 · linkedin.com/in/josh-horn-0aa116182
     </p>
   </PageIntro>
 
@@ -66,7 +72,87 @@ import { profile, experience, education, skills } from '../data/profile';
   </section>
 </Base>
 
+<script>
+  document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+</script>
+
 <style>
+  .print-row {
+    margin-top: 1.25rem;
+  }
+
+  .print-btn {
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--ink);
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .print-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  @media print {
+    .print-only {
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    /* The site name becomes the résumé header */
+    :global(.site-header) {
+      padding-block: 0;
+    }
+
+    :global(.site-header .name) {
+      font-size: 22pt;
+    }
+
+    :global(.page-intro h1) {
+      display: none;
+    }
+
+    :global(.page-intro .lead) {
+      margin-top: 0;
+      font-size: 9.5pt;
+    }
+
+    .roles {
+      gap: 1rem;
+      max-width: none;
+    }
+
+    .role {
+      break-inside: avoid;
+    }
+
+    .role-head h2 {
+      font-size: 13pt;
+    }
+
+    .bullets {
+      margin-top: 0.4rem;
+      gap: 0.2rem;
+    }
+
+    .skills {
+      gap: 0.15rem;
+      max-width: none;
+    }
+
+    .skills div {
+      grid-template-columns: 9rem 1fr;
+    }
+  }
+
   .company-label {
     display: grid;
     align-content: start;

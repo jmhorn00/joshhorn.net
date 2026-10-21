@@ -1,0 +1,190 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import EdiFlow from '../../components/EdiFlow.astro';
+import X12Explorer from '../../components/X12Explorer.astro';
+import { work, type CaseStudy } from '../../data/work';
+
+export const getStaticPaths = (() =>
+  work.map((study, i) => ({
+    params: { slug: study.slug },
+    props: { study, next: work[(i + 1) % work.length]! },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  study: CaseStudy;
+  next: CaseStudy;
+}
+
+const { study, next } = Astro.props;
+const [first, ...rest] = study.sections;
+---
+
+<Base title={study.title} description={study.summary}>
+  <article>
+    <header class="head">
+      <p class="crumb"><a href="/work/">Work</a> / {study.kind}</p>
+      <h1>{study.title}</h1>
+      <p class="summary">{study.summary}</p>
+    </header>
+
+    <div class="layout">
+      <aside class="meta">
+        <dl>
+          <div>
+            <dt>Where</dt>
+            <dd>{study.context}</dd>
+          </div>
+          <div>
+            <dt>Type</dt>
+            <dd>{study.kind}</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>
+              <ul>{study.stack.map((s) => <li>{s}</li>)}</ul>
+            </dd>
+          </div>
+        </dl>
+      </aside>
+
+      <div class="body">
+        {
+          first && (
+            <section>
+              <h2>{first.heading}</h2>
+              {first.body.map((p) => <p>{p}</p>)}
+            </section>
+          )
+        }
+
+        {study.feature === 'edi' && <EdiFlow />}
+
+        {
+          rest.map((s, i) => (
+            <>
+              <section>
+                <h2>{s.heading}</h2>
+                {s.body.map((p) => <p>{p}</p>)}
+              </section>
+              {study.feature === 'edi' && i === 1 && <X12Explorer />}
+            </>
+          ))
+        }
+      </div>
+    </div>
+
+    <nav class="next" aria-label="Next case study">
+      <span class="label">Next</span>
+      <a href={`/work/${next.slug}/`}>{next.title}</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .head {
+    padding-block: 3rem 3rem;
+    max-width: 48rem;
+  }
+
+  @media (min-width: 960px) {
+    .head {
+      padding-block: 4.5rem 4rem;
+    }
+  }
+
+  .crumb {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+  }
+
+  h1 {
+    margin-top: 1rem;
+    font-size: clamp(2.1rem, 5vw, 3.3rem);
+  }
+
+  .summary {
+    margin-top: 1.25rem;
+    font-size: 1.15rem;
+    color: var(--ink-2);
+    max-width: var(--measure);
+  }
+
+  .layout {
+    display: grid;
+    gap: 2rem 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (min-width: 860px) {
+    .layout {
+      grid-template-columns: 13rem 1fr;
+    }
+
+    .meta dl {
+      position: sticky;
+      top: 2rem;
+    }
+  }
+
+  .meta dl {
+    margin: 0;
+    display: grid;
+    gap: 1.1rem;
+    font-size: 0.92rem;
+  }
+
+  .meta dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .meta dd {
+    margin: 0.15rem 0 0;
+  }
+
+  .meta li {
+    color: var(--ink-2);
+  }
+
+  .body {
+    min-width: 0;
+    max-width: 44rem;
+  }
+
+  .body section + section {
+    margin-top: 2.5rem;
+  }
+
+  .body h2 {
+    font-size: 1.5rem;
+  }
+
+  .body p {
+    margin-top: 0.8rem;
+    font-size: 1.08rem;
+    color: var(--ink-2);
+  }
+
+  .next {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .next a {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    text-decoration-color: var(--accent);
+  }
+
+  .next a::after {
+    content: ' →';
+  }
+</style>

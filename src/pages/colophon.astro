@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+---
+
+<Base title="Colophon" description="How joshhorn.net is built: Astro, plain CSS, and very little JavaScript.">
+  <PageIntro title="Colophon">
+    <p>Notes on how this site is put together, for anyone who cares about that sort of thing.</p>
+  </PageIntro>
+
+  <section class="row">
+    <h2 class="label">Build</h2>
+    <div class="prose">
+      <p>
+        Built with <a href="https://astro.build" rel="noopener">Astro</a> and shipped as static HTML. There is
+        no front-end framework. The only JavaScript on the site is the theme switch, the print button on
+        the Experience page, and the X12 explorer on the EDI case study, and every page works without it.
+      </p>
+      <p>
+        Content lives in a few typed data files, so updating a job or a service never means touching
+        markup.
+      </p>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="label">Design</h2>
+    <div class="prose">
+      <p>
+        Headings are set in Newsreader and body text in Public Sans, both self-hosted. The layout borrows
+        from printed résumés: a narrow column of labels, a wide column of content, and hairline rules
+        between sections.
+      </p>
+      <p>
+        Colors are a handful of CSS custom properties with a light and a dark set; the site follows your
+        system setting unless you pick one in the footer. Page-to-page transitions use the CSS View
+        Transitions API, and they turn off if you've asked your system to reduce motion.
+      </p>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="label">Details</h2>
+    <ul class="prose list">
+      <li>Every page has a print stylesheet. The Experience page prints as a résumé.</li>
+      <li>The EDI flow diagram is HTML and CSS rather than an image, so it reflows on small screens.</li>
+      <li>Focus styles are visible, and every interactive element works from the keyboard.</li>
+      <li>Layouts are checked at phone, tablet, and desktop widths in both color themes.</li>
+    </ul>
+  </section>
+
+  <section class="row">
+    <h2 class="label">Hosting</h2>
+    <p class="prose">Deployed on Cloudflare from the main branch on every push.</p>
+  </section>
+</Base>
+
+<style>
+  .list {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .list li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+
+  .list li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--ink-3);
+  }
+</style>

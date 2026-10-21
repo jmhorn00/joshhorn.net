@@ -34,6 +34,7 @@ export const experience: Job[] = [
           'Built an end-to-end EDI integration system in Python that generates outbound files from the company claims system for delivery to vendors and ingests inbound vendor files back into it, automating both directions of the trading-partner exchange.',
           'Work across 834 enrollment, 837 claims, and 835 remittance transactions, reading and troubleshooting payer acknowledgment and response files to resolve rejections.',
           'Create and submit CMS Section 111 mandatory insurer reporting files and reconcile the returned response files.',
+          'Build and maintain a large, layered Django monorepo that houses the company CRM, a job runner system, a ticketing system, and an assistant.',
           'Built internal Python/Django web applications for client and broker communications, plus a wide range of Python tooling, including automated daily, weekly, and monthly reporting and a claims notification system that replaced a manual client outreach process.',
           'Administer company SQL databases: schema changes, query optimization, data integrity, and production availability.',
           'Support virtualized server infrastructure on VMware ESXi and Proxmox, manage endpoints through ScreenConnect and PDQ, and coordinate upgrades and Azure deployments with third-party IT vendors.',
@@ -94,7 +95,7 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: 'Frontend',
-    items: ['HTML5', 'CSS3', 'JavaScript', 'HTMX', 'Tailwind CSS', 'Vite', 'Responsive design'],
+    items: ['Astro', 'HTML5', 'CSS3', 'JavaScript', 'HTMX', 'Tailwind CSS', 'Vite', 'Responsive design'],
   },
   {
     group: 'Data',
@@ -132,36 +133,5 @@ export const skills: { group: string; items: string[] }[] = [
   {
     group: 'Practice',
     items: ['Git', 'CI/CD', 'Automated deployments', 'SOPS / age secrets', 'REST API design'],
-  },
-];
-
-export type Project = {
-  name: string;
-  tagline: string;
-  description: string;
-  tags: string[];
-};
-
-export const projects: Project[] = [
-  {
-    name: 'Document RAG Chatbot',
-    tagline: 'Chat with your PDFs, Word docs, and slide decks',
-    description:
-      'Django chatbot with a document ingestion pipeline (MarkItDown) and a retrieval-augmented generation layer over uploaded PDF, Word, and PowerPoint files.',
-    tags: ['Django', 'RAG', 'MarkItDown', 'LLM'],
-  },
-  {
-    name: 'AI Assistant & MCP Tooling',
-    tagline: 'Local-first voice and text assistant',
-    description:
-      'Assistant running on Ollama with tool calling, web research, and smart-home control behind a custom web UI. Includes Model Context Protocol (MCP) servers that expose tools to LLM clients, plus multi-agent orchestration that delegates work across specialized sub-agents.',
-    tags: ['Ollama', 'MCP', 'Multi-agent', 'Python'],
-  },
-  {
-    name: 'Kubernetes Home Cluster',
-    tagline: 'Production-grade GitOps on bare metal',
-    description:
-      'Self-hosted Talos Linux cluster on Proxmox managed entirely through Flux CD GitOps: Cilium CNI, Traefik ingress, cert-manager TLS, SOPS/age encrypted secrets, and image update automation for CI-driven deploys.',
-    tags: ['Talos', 'Flux CD', 'Cilium', 'Traefik'],
   },
 ];

@@ -26,6 +26,12 @@ const { title } = Astro.props;
     font-size: clamp(2.2rem, 5vw, 3.4rem);
   }
 
+  @media print {
+    .page-intro {
+      padding-block: 0 0.5rem;
+    }
+  }
+
   .lead {
     margin-top: 1.25rem;
     font-size: 1.12rem;

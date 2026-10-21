@@ -1,7 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
-import { profile, experience, projects } from '../data/profile';
+import WorkList from '../components/WorkList.astro';
+import { profile, experience, skills } from '../data/profile';
 import { services } from '../data/services';
+import { work } from '../data/work';
+
+const principles = [
+  {
+    title: 'I run what I build',
+    text: "The EDI integration I built runs every day, and when a payer rejects a file, I'm the one reading the acknowledgment. Owning software in production changes how you write it: clear logging, obvious failure modes, and code that's easy to debug.",
+  },
+  {
+    title: 'Plain tools, used well',
+    text: "Django, a solid relational database, and a few scheduled jobs solve most business problems. I reach for something heavier when the problem calls for it, not before.",
+  },
+  {
+    title: 'The front end is part of the job',
+    text: 'Internal tools get used all day, so fast pages, clear forms, keyboard support, and layouts that work on a phone matter. This site is static HTML with very little JavaScript, and it prints cleanly.',
+  },
+  {
+    title: 'Write it down',
+    text: 'A short README, a diagram of where the data goes, a note on why a decision was made. It is the cheapest way to make a system easy for the next person to pick up.',
+  },
+];
 
 const job = experience[0]!;
 const role = job.roles[0]!;
@@ -24,8 +45,8 @@ const role = job.roles[0]!;
         <p>I'm open to remote full-time roles and contract projects.</p>
       </div>
       <p class="links">
-        <a class="arrow-link" href="/services/">What I can help with</a>
-        <a href="/experience/">Experience</a>
+        <a class="arrow-link" href="/work/">See the work</a>
+        <a href="/services/">What I can help with</a>
       </p>
     </div>
 
@@ -50,6 +71,29 @@ const role = job.roles[0]!;
   </section>
 
   <section class="row">
+    <h2 class="label">Selected work</h2>
+    <div>
+      <WorkList items={work.filter((w) => w.kind === 'Day job')} />
+      <p class="more"><a class="arrow-link" href="/work/">All work, including side projects</a></p>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="label">How I work</h2>
+    <ul class="principles">
+      {
+        principles.map((p, i) => (
+          <li>
+            <span class="pnum">{i + 1}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="row">
     <h2 class="label">What I do</h2>
     <div>
       <ol class="service-list">
@@ -66,34 +110,19 @@ const role = job.roles[0]!;
   </section>
 
   <section class="row">
-    <h2 class="label">Day job</h2>
-    <div class="prose">
-      <h3 class="job">
-        {role.title}, <span>{job.company}</span>
-      </h3>
-      <p class="when">{role.period}</p>
-      <ul class="bullets">
-        {role.highlights.slice(0, 3).map((h) => <li>{h}</li>)}
-      </ul>
-      <p class="more"><a class="arrow-link" href="/experience/">Full experience</a></p>
-    </div>
-  </section>
-
-  <section class="row">
-    <h2 class="label">On the side</h2>
-    <div>
-      <ul class="projects">
-        {
-          projects.map((p) => (
-            <li>
-              <h3>{p.name}</h3>
-              <p>{p.description}</p>
-            </li>
+    <h2 class="label">Toolkit</h2>
+    <dl class="toolkit">
+      {
+        skills
+          .filter((g) => g.group !== 'Practice')
+          .map((g) => (
+            <div>
+              <dt>{g.group}</dt>
+              <dd>{g.items.join(', ')}</dd>
+            </div>
           ))
-        }
-      </ul>
-      <p class="more"><a class="arrow-link" href="/projects/">More on projects</a></p>
-    </div>
+      }
+    </dl>
   </section>
 
   <section class="row">
@@ -207,53 +236,14 @@ const role = job.roles[0]!;
     margin-top: 1.75rem;
   }
 
-  .job {
-    font-size: 1.5rem;
-    color: var(--ink);
-  }
 
-  .job span {
-    font-style: italic;
-  }
 
-  .when {
-    margin-top: 0.25rem;
-    font-size: 0.92rem;
-    color: var(--ink-3);
-  }
 
-  .bullets {
-    margin-top: 1.25rem;
-    display: grid;
-    gap: 0.75rem;
-  }
 
-  .bullets li {
-    padding-left: 1.1rem;
-    position: relative;
-  }
 
-  .bullets li::before {
-    content: '–';
-    position: absolute;
-    left: 0;
-    color: var(--ink-3);
-  }
 
-  .projects {
-    display: grid;
-    gap: 2rem;
-    max-width: var(--measure);
-  }
 
-  .projects h3 {
-    font-size: 1.35rem;
-  }
 
-  .projects p {
-    margin-top: 0.4rem;
-    color: var(--ink-2);
-  }
 
   .hello {
     font-family: var(--serif);
@@ -264,5 +254,67 @@ const role = job.roles[0]!;
 
   .hello a {
     text-decoration-color: var(--accent);
+  }
+
+  .principles {
+    display: grid;
+    gap: 2.25rem 3rem;
+  }
+
+  @media (min-width: 760px) {
+    .principles {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .principles li {
+    display: grid;
+    align-content: start;
+    grid-template-columns: 1.6rem 1fr;
+    gap: 0.35rem 0.5rem;
+  }
+
+  .pnum {
+    grid-row: span 2;
+    padding-top: 0.2rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--accent);
+  }
+
+  .principles h3 {
+    font-size: 1.3rem;
+  }
+
+  .principles p {
+    color: var(--ink-2);
+  }
+
+  .toolkit {
+    margin: 0;
+    display: grid;
+    gap: 0.9rem;
+    max-width: 48rem;
+  }
+
+  .toolkit div {
+    display: grid;
+    gap: 0.1rem 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .toolkit div {
+      grid-template-columns: 9.5rem 1fr;
+    }
+  }
+
+  .toolkit dt {
+    font-weight: 600;
+  }
+
+  .toolkit dd {
+    margin: 0;
+    color: var(--ink-2);
   }
 </style>

@@ -6,13 +6,13 @@
   --serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
   --sans: 'Public Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --paper: #f6f4ef;
-  --paper-2: #edeae2;
-  --ink: #1b1a17;
-  --ink-2: #4a4740;
-  --ink-3: #77736a;
-  --rule: #d9d5ca;
-  --accent: #b4532a;
+  --paper: #f3f5f8;
+  --paper-2: #e6eaf0;
+  --ink: #111827;
+  --ink-2: #374151;
+  --ink-3: #6b7280;
+  --rule: #d3d9e2;
+  --accent: #1d4e89;
 
   --measure: 38rem;
   --wide: 68rem;
@@ -22,25 +22,25 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --paper: #161512;
-    --paper-2: #1f1d19;
-    --ink: #ece8df;
-    --ink-2: #bdb7aa;
-    --ink-3: #8c867a;
-    --rule: #34312b;
-    --accent: #e2875c;
+    --paper: #0e1217;
+    --paper-2: #161b22;
+    --ink: #e6e9ee;
+    --ink-2: #b4bcc8;
+    --ink-3: #848d9b;
+    --rule: #262d37;
+    --accent: #7eaee0;
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --paper: #161512;
-  --paper-2: #1f1d19;
-  --ink: #ece8df;
-  --ink-2: #bdb7aa;
-  --ink-3: #8c867a;
-  --rule: #34312b;
-  --accent: #e2875c;
+  --paper: #0e1217;
+  --paper-2: #161b22;
+  --ink: #e6e9ee;
+  --ink-2: #b4bcc8;
+  --ink-3: #848d9b;
+  --rule: #262d37;
+  --accent: #7eaee0;
   color-scheme: dark;
 }
 
@@ -52,6 +52,23 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  hanging-punctuation: first last;
+}
+
+/* Cross-document page transitions, no JavaScript involved */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.18s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
 }
 
 body {
@@ -77,6 +94,7 @@ h3 {
 
 p {
   margin: 0;
+  text-wrap: pretty;
 }
 
 ul,
@@ -168,4 +186,60 @@ a:hover {
 
 .arrow-link::after {
   content: ' →';
+}
+
+/* Print: drop the site chrome so pages (Experience in particular) print as a clean document */
+@media print {
+  :root,
+  :root[data-theme='dark'] {
+    --paper: #fff;
+    --paper-2: #fff;
+    --ink: #000;
+    --ink-2: #222;
+    --ink-3: #555;
+    --rule: #bbb;
+    --accent: #000;
+    color-scheme: light;
+  }
+
+  body {
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .site-header nav,
+  .site-footer,
+  .skip-link,
+  .no-print {
+    display: none !important;
+  }
+
+  .wrap {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  @page {
+    margin: 0.6in 0.7in;
+  }
+
+  .row {
+    padding-block: 0.9rem;
+    gap: 0.4rem 1.5rem;
+    grid-template-columns: 9.5rem 1fr;
+  }
+
+  .row > .label {
+    break-after: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  a {
+    text-decoration: none;
+  }
 }

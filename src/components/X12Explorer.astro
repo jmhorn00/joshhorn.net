@@ -1,0 +1,257 @@
+---
+// An annotated, trimmed-down 837P. Hover, focus, or tap a segment to read
+// what it does. All identifiers are made up.
+const segments = [
+  {
+    id: 'ISA',
+    text: 'ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260115*0930*^*00501*000000101*1*P*:~',
+    note: 'Interchange header. The envelope around everything: who is sending, who is receiving, when, the X12 version (00501), and a control number. The 1 asks for an acknowledgment; P means production.',
+  },
+  {
+    id: 'GS',
+    text: 'GS*HC*SENDERID*RECEIVERID*20260115*0930*101*X*005010X222A1~',
+    note: 'Functional group header. HC says this group holds health care claims. 005010X222A1 names the exact implementation guide: the 837 Professional.',
+  },
+  {
+    id: 'ST',
+    text: 'ST*837*0001*005010X222A1~',
+    note: 'Transaction set header. Starts one 837 inside the group, with its own control number that the SE segment has to match.',
+  },
+  {
+    id: 'BHT',
+    text: 'BHT*0019*00*BATCH0001*20260115*0930*CH~',
+    note: 'Beginning of hierarchical transaction. 00 means this is an original submission, and CH marks it as a chargeable claim.',
+  },
+  {
+    id: 'NM1',
+    text: 'NM1*85*2*EXAMPLE CLINIC*****XX*1234567893~',
+    note: 'Entity name. 85 is the billing provider, 2 means an organization rather than a person, and XX says the identifier that follows is an NPI.',
+  },
+  {
+    id: 'CLM',
+    text: 'CLM*PCN0001*150***11:B:1*Y*A*Y*Y~',
+    note: 'Claim information. The patient control number, the total charge ($150), and the place of service: 11 is an office visit, and the trailing 1 says this is an original claim, not a correction.',
+  },
+  {
+    id: 'SV1',
+    text: 'SV1*HC:99213*150*UN*1***1~',
+    note: 'Professional service line. HC:99213 is the procedure code (an established-patient office visit), billed at $150 for 1 unit.',
+  },
+  {
+    id: 'SE',
+    text: 'SE*6*0001~',
+    note: 'Transaction set trailer. 6 is the segment count from ST to SE. If it does not match, the receiver rejects the transaction, which is one of the first things to check in a rejection.',
+  },
+  {
+    id: 'GE',
+    text: 'GE*1*101~',
+    note: 'Functional group trailer: one transaction set in group 101.',
+  },
+  {
+    id: 'IEA',
+    text: 'IEA*1*000000101~',
+    note: 'Interchange trailer: one functional group, closing control number 000000101 to match the ISA.',
+  },
+];
+---
+
+<figure class="x12" data-x12>
+  <figcaption>
+    <span class="title">Reading an 837</span>
+    <span class="hint">Hover or tap a segment. Trimmed for length; a real claim has more loops.</span>
+  </figcaption>
+
+  <div class="grid">
+    <div class="file" role="group" aria-label="Sample 837 professional claim file">
+      {
+        segments.map((s, i) => (
+          <button type="button" class="seg" data-index={i} aria-describedby="x12-note">
+            <b>{s.id}</b>{s.text.slice(s.id.length)}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="note" id="x12-note" aria-live="polite">
+      <p class="note-id">{segments[0]!.id}</p>
+      <p class="note-text">{segments[0]!.note}</p>
+    </div>
+  </div>
+
+  <details class="all">
+    <summary>All segments explained</summary>
+    <dl>
+      {
+        segments.map((s) => (
+          <>
+            <dt>{s.id}</dt>
+            <dd>{s.note}</dd>
+          </>
+        ))
+      }
+    </dl>
+  </details>
+
+  <script is:inline type="application/json" data-notes set:html={JSON.stringify(segments.map(({ id, note }) => ({ id, note })))} />
+</figure>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-x12]')) {
+    const notes: { id: string; note: string }[] = JSON.parse(
+      root.querySelector('[data-notes]')?.textContent ?? '[]',
+    );
+    const buttons = root.querySelectorAll<HTMLButtonElement>('.seg');
+    const id = root.querySelector('.note-id');
+    const text = root.querySelector('.note-text');
+
+    const show = (i: number) => {
+      const n = notes[i];
+      if (!n || !id || !text) return;
+      id.textContent = n.id;
+      text.textContent = n.note;
+      buttons.forEach((b, j) => b.classList.toggle('active', i === j));
+    };
+
+    buttons.forEach((b, i) => {
+      b.addEventListener('mouseenter', () => show(i));
+      b.addEventListener('focus', () => show(i));
+      b.addEventListener('click', () => show(i));
+    });
+    show(0);
+  }
+</script>
+
+<style>
+  .x12 {
+    margin: 2.5rem 0;
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.85rem;
+  }
+
+  .title {
+    font-weight: 600;
+  }
+
+  .hint {
+    color: var(--ink-3);
+  }
+
+  .grid {
+    display: grid;
+  }
+
+  @media (min-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr 15rem;
+    }
+  }
+
+  .file {
+    min-width: 0;
+    padding: 0.75rem 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .seg {
+    display: block;
+    width: 100%;
+    /* hanging indent so wrapped segments read as one line */
+    padding: 0.2rem 1.1rem 0.2rem 2.6rem;
+    text-indent: -1.5rem;
+    border: 0;
+    border-left: 2px solid transparent;
+    background: none;
+    color: var(--ink-2);
+    font: inherit;
+    text-align: left;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  .seg b {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .seg:hover,
+  .seg.active {
+    background: var(--paper);
+    color: var(--ink);
+    border-left-color: var(--accent);
+  }
+
+  .seg.active b {
+    color: var(--accent);
+  }
+
+  .seg:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .note {
+    padding: 1.1rem;
+    border-top: 1px solid var(--rule);
+    background: var(--paper);
+    min-height: 9rem;
+  }
+
+  @media (min-width: 900px) {
+    .note {
+      border-top: 0;
+      border-left: 1px solid var(--rule);
+    }
+  }
+
+  .note-id {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .note-text {
+    margin-top: 0.4rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .all {
+    border-top: 1px solid var(--rule);
+    padding: 0.75rem 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .all summary {
+    cursor: pointer;
+    color: var(--ink-2);
+  }
+
+  .all dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    margin: 1rem 0 0.25rem;
+  }
+
+  .all dt {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-weight: 700;
+  }
+
+  .all dd {
+    margin: 0;
+    color: var(--ink-2);
+  }
+</style>

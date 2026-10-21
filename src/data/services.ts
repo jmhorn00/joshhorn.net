@@ -21,6 +21,19 @@ export const services: Service[] = [
     stack: ['Django', 'Wagtail', 'HTMX', 'PostgreSQL', 'Tailwind'],
   },
   {
+    slug: 'astro',
+    title: 'Astro websites',
+    summary:
+      'Fast, content-focused websites built with Astro and shipped as static HTML with as little JavaScript as the page needs. This site is one of them.',
+    deliverables: [
+      'New marketing sites, portfolios, and documentation sites',
+      'Moving an existing site to Astro',
+      'Content in Markdown or a headless CMS your team can edit',
+      'Deploys to Cloudflare, Netlify, Vercel, or your own server',
+    ],
+    stack: ['Astro', 'Markdown', 'CSS', 'Cloudflare'],
+  },
+  {
     slug: 'python',
     title: 'Python development',
     summary:
