@@ -4,23 +4,27 @@ import Base from '../../layouts/Base.astro';
 import EdiFlow from '../../components/EdiFlow.astro';
 import X12Explorer from '../../components/X12Explorer.astro';
 import { work, type CaseStudy } from '../../data/work';
+import { chapterFor } from '../../data/chapters';
 
 export const getStaticPaths = (() =>
   work.map((study, i) => ({
     params: { slug: study.slug },
-    props: { study, next: work[(i + 1) % work.length]! },
+    props: { study, next: work[(i + 1) % work.length]!, index: i },
   }))) satisfies GetStaticPaths;
 
 interface Props {
   study: CaseStudy;
   next: CaseStudy;
+  index: number;
 }
 
-const { study, next } = Astro.props;
+const { study, next, index } = Astro.props;
+// Case studies follow the Work chapter's opening page, two pages apiece
+const folio = (chapterFor('/work/')?.page ?? 0) + 1 + index * 2;
 const [first, ...rest] = study.sections;
 ---
 
-<Base title={study.title} description={study.summary}>
+<Base title={study.title} description={study.summary} folio={folio}>
   <article>
     <header class="head">
       <p class="crumb"><a href="/work/">Work</a> / {study.kind}</p>

@@ -32,9 +32,11 @@ import PageIntro from '../components/PageIntro.astro';
         between sections.
       </p>
       <p>
-        Colors are a handful of CSS custom properties with a light and a dark set; the site follows your
-        system setting unless you pick one in the footer. Page-to-page transitions use the CSS View
-        Transitions API, and they turn off if you've asked your system to reduce motion.
+        On wide screens the site is laid out as an open hardcover book: the contents on the left page,
+        each chapter on the right. Moving between chapters turns the page, using the CSS View
+        Transitions API and a few lines of script to decide which way it turns. On phones it is a single
+        page that turns the same way. The animation is skipped if you've asked your system to reduce
+        motion, and browsers without View Transitions simply change pages.
       </p>
     </div>
   </section>

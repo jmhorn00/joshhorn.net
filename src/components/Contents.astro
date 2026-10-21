@@ -1,0 +1,159 @@
+---
+import { chapters, chapterFor } from '../data/chapters';
+import { profile } from '../data/profile';
+
+const current = chapterFor(Astro.url.pathname);
+---
+
+<div class="contents">
+  <p class="eyebrow">A portfolio</p>
+  <a href="/" class="title">{profile.name}</a>
+  <p class="subtitle">Software, integrations &amp; data work in Python and Django</p>
+
+  <nav aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      {
+        chapters.map((c) => (
+          <li>
+            <a href={c.href} aria-current={c === current ? 'page' : undefined}>
+              <span class="num">{c.numeral}</span>
+              <span class="name">{c.title}</span>
+              <span class="leader" aria-hidden="true" />
+              <span class="pg">{c.page}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+
+  <p class="imprint">
+    {profile.location}<br />
+    {profile.availability}<br />
+    <a href={`mailto:${profile.email}`}>{profile.email}</a>
+  </p>
+</div>
+
+<style>
+  .contents {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: clamp(2.5rem, 6vh, 4.5rem) clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .title {
+    margin-top: 0.75rem;
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 3.4vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+  }
+
+  .subtitle {
+    margin-top: 0.75rem;
+    max-width: 18rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--ink-2);
+  }
+
+  nav {
+    margin-top: clamp(2.5rem, 7vh, 4.5rem);
+  }
+
+  h2 {
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  ol {
+    margin-top: 0.5rem;
+  }
+
+  ol a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding-block: 0.45rem;
+    text-decoration: none;
+    color: var(--ink-2);
+    transition: color 0.15s;
+  }
+
+  ol a:hover {
+    color: var(--ink);
+  }
+
+  .num {
+    width: 2rem;
+    flex: none;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-3);
+  }
+
+  .name {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+  }
+
+  /* dotted leader between title and page number */
+  .leader {
+    flex: 1;
+    min-width: 1rem;
+    border-bottom: 1px dotted var(--ink-3);
+    transform: translateY(-0.3em);
+    opacity: 0.6;
+  }
+
+  .pg {
+    font-variant-numeric: oldstyle-nums tabular-nums;
+    font-family: var(--serif);
+    color: var(--ink-3);
+  }
+
+  ol a[aria-current='page'] {
+    color: var(--ink);
+  }
+
+  ol a[aria-current='page'] .num,
+  ol a[aria-current='page'] .pg {
+    color: var(--accent);
+  }
+
+  ol a[aria-current='page'] .name {
+    font-weight: 600;
+  }
+
+  .imprint {
+    margin-top: auto;
+    padding-top: 2rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+
+  .imprint a {
+    color: var(--ink-2);
+  }
+</style>
