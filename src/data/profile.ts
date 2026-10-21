@@ -94,7 +94,7 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: 'Frontend',
-    items: ['HTML5', 'CSS3', 'JavaScript', 'HTMX', 'Tailwind CSS', 'Vite', 'Responsive design'],
+    items: ['Astro', 'HTML5', 'CSS3', 'JavaScript', 'HTMX', 'Tailwind CSS', 'Vite', 'Responsive design'],
   },
   {
     group: 'Data',
